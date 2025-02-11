@@ -40,7 +40,7 @@ const LoginAuth = () => {
   return (
     <section className="bg-white min-h-screen flex items-start justify-center pt-16 relative">
       {isLoading && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 z-50 flex items-center justify-center">
           <img src="/img/loading.gif" alt="Loading" className="w-20 h-20" />
         </div>
       )}
