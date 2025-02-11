@@ -1,0 +1,71 @@
+<svg
+  width="300"
+  height="100"
+  viewBox="0 0 300 100"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FE73A4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFB6C1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="f1" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0.5" dy="0.5" stdDeviation="1" flood-color="black" />
+    </filter>
+    <filter id="f2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0.25" dy="0.25" stdDeviation="0.5" flood-color="black" />
+    </filter>
+    <filter id="f3" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0.25" dy="0.25" stdDeviation="0.25" flood-color="gray" />
+    </filter>
+  </defs>
+
+  <text
+    x="20"
+    y="40"
+    font-family="'Dancing Script', cursive"
+    font-size="40"
+    fill="url(#gradient1)"
+    font-weight="bold"
+    stroke="#FE73A4"
+    stroke-width="0.5"
+    filter="url(#f1)"
+  >
+    White
+  </text>
+
+  <text
+    id="beauty"
+    x="125"
+    y="40"
+    font-family="'Lobster', cursive"
+    font-size="28"
+    fill="#57D6E7"
+    font-weight="700"
+    filter="url(#f2)"
+  >
+    Beauty
+  </text>
+
+  <text
+    x="20"
+    y="70"
+    font-family="Montserrat, sans-serif"
+    font-size="18"
+    font-weight="400"
+    fill="#FE73A4"
+    filter="url(#f3)"
+  >
+    Интернет магазин
+  </text>
+
+  <animate
+    attributeName="x"
+    from="125"
+    to="100"
+    dur="2s"
+    begin="0s"
+    repeatCount="indefinite"
+    id="beauty-animation"
+  />
+</svg>
