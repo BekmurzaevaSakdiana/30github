@@ -13,6 +13,14 @@ export class CatalogUtils {
       }
     }
 
+    static async getCategoryType(){
+      try{
+        const response=await axiosInstance.get<BaseResponseI<CardData[]>>(``)
+      }catch(error:any){
+
+      }
+    }
+
      
   }
   

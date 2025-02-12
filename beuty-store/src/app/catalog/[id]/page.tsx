@@ -19,7 +19,7 @@ export default async function Page({ params, searchParams }: InitialObject) {
       </div>
 
       <div className="filterCatalog__products flex items-baseline justify-between gap-12 max-xl:flex-col max-xl:gap-20">
-        <FilterCatalog params={params} searchParams={searchParams} />
+        <FilterCatalog params={params} searchParams={searchParams} name={searchParams?.name} />
 
         <div className="twoSection__products w-full max-lg:flex-col">
           <div className="products2 flex-grow mt-20 max-w-4xl w-full max-lg:max-3xl">

@@ -37,6 +37,8 @@ export const getCategory = createAsyncThunk<
   }
 });
 
+
+
 const categorySlice = createSlice({
   name: "categories",
   initialState,

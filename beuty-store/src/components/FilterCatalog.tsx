@@ -2,17 +2,22 @@
 import { useEffect, useState } from "react";
 import Range from "./Range";
 import { BrandUtils } from "@/requests/brandsReq";
+import axiosInstance from "@/app/axios/axios";
 
 interface FilterCatalogProps {
   params: {
     id: string;
   };
   searchParams: any;
+  name?: string;
 }
 
-const FilterCatalog = ({ params, searchParams }: FilterCatalogProps) => {
-  const [allBrands, setAllBrands] = useState<string[]>([]);
+const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
+  const [allBrands, setAllBrands] = useState<{
+    results: { name: string }[];
+  } | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [subCategory, setSubCategory] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -28,7 +33,25 @@ const FilterCatalog = ({ params, searchParams }: FilterCatalogProps) => {
 
     fetchBrands();
   }, []);
-  console.log(allBrands.results);
+  console.log(allBrands);
+
+  useEffect(() => {
+    const fetchSubCategories = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `/subcategory/?category=${params.id}`
+        );
+        setSubCategory(data.results);
+      } catch (error) {
+        console.error("Ошибка при загрузке", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubCategories();
+  }, [params.id]);
+  console.log(subCategory);
 
   return (
     <div className="catalogItems mt-10">
@@ -49,12 +72,28 @@ const FilterCatalog = ({ params, searchParams }: FilterCatalogProps) => {
 
             <form className="max-xl:hidden">
               <div className="typeof">
-                <p className="font-bold text-lg mt-8">Тип волос</p>
-                <div className="checkbox flex items-center gap-3 mt-3">
-                  <input className="px-4" type="checkbox" />
-                  <label>
-                    <p className="text-sm font-normal">Для всех типов</p>
-                  </label>
+                <p className="font-bold text-lg mt-8">{name}</p>
+
+                <div className="checkbox flex flex-col  gap-3 mt-3">
+                  {loading ? (
+                    <p>Загрузка...</p>
+                  ) : subCategory.length > 0 ? (
+                    subCategory.map((item, index) => (
+                      <div
+                        key={index}
+                        className="checkbox flex items-center gap-3 mt-3"
+                      >
+                        <input className="px-4" type="checkbox" />
+                        <label>
+                          <p className="text-sm font-normal">{item.name}</p>
+                        </label>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Нет доступных подкатегорий</p>
+                  )}
+
+                 
                 </div>
                 <div className="line mt-6 border-b-2 w-[240px]"></div>
               </div>
@@ -82,7 +121,7 @@ const FilterCatalog = ({ params, searchParams }: FilterCatalogProps) => {
                     </div>
                   ))
                 ) : (
-                  <p>Нет доступных брендов</p>  
+                  <p>Нет доступных брендов</p>
                 )}
               </div>
             </form>
