@@ -2,10 +2,17 @@ import Card from "@/components/Card";
 import FilterCatalog from "@/components/FilterCatalog";
 import GoBack from "@/components/goBack";
 import { InitialObject } from "@/types/modules";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params, searchParams }: InitialObject) {
- 
+
+  // const search = searchParams.name || "";
+  //   let brands: BaseResponseI<Brand[]> | null = null;
+  //   brands = await BrandUtils.searchBrandsByName({ search });
+  //   const brandList = brands?.results ?? [];
+
+
 
   return (
     <section className="catalog-items mb-80 ">
@@ -19,7 +26,11 @@ export default async function Page({ params, searchParams }: InitialObject) {
       </div>
 
       <div className="filterCatalog__products flex items-baseline justify-between gap-12 max-xl:flex-col max-xl:gap-20">
-        <FilterCatalog params={params} searchParams={searchParams} name={searchParams?.name} />
+        <FilterCatalog
+          params={params}
+          searchParams={searchParams}
+          name={searchParams?.name}
+        />
 
         <div className="twoSection__products w-full max-lg:flex-col">
           <div className="products2 flex-grow mt-20 max-w-4xl w-full max-lg:max-3xl">
@@ -28,9 +39,7 @@ export default async function Page({ params, searchParams }: InitialObject) {
                 <h2 className="font-bold text-4xl">Товары</h2>
               </div>
               <div className="cards w-full grid grid-cols-3 gap-8 mt-9 lg:overflow-hidden lg:grid-cols-3 max-lg:flex max-lg:gap-4 max-lg:overflow-x-auto max-lg:grid-cols-none">
-              
-                  <Card  />
-             
+                <Card />
               </div>
             </div>
             <div className="pagination flex items-center gap-4 mt-24 justify-center">

@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -14,7 +13,7 @@ const SearchInput: React.FC = () => {
   }, [searchParams]);
 
   const handleSearch = () => {
-    router.push(`/brands?name=${inputValue}`); // Переход с обновлением searchParams
+    router.push(`/brands?name=${inputValue}`); 
   };
 
   return (
@@ -23,6 +22,7 @@ const SearchInput: React.FC = () => {
         e.preventDefault();
         handleSearch();
       }}
+      
       className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4"
     >
       <div className="search flex items-center gap-4 bg-gray-300 px-5 py-2 rounded-3xl max-sm:flex-1">

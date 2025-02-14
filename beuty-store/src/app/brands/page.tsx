@@ -18,11 +18,9 @@ export interface BaseResponseI<T> {
 }
 
 const BrandsItems = async ({ searchParams }: InitialObject) => {
-  
   const search = searchParams.name || "";
   let brands: BaseResponseI<Brand[]> | null = null;
   brands = await BrandUtils.searchBrandsByName({ search });
-
   const brandList = brands?.results ?? [];
 
   return (
