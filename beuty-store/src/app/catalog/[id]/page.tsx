@@ -1,18 +1,33 @@
 import Card from "@/components/Card";
 import FilterCatalog from "@/components/FilterCatalog";
 import GoBack from "@/components/goBack";
+import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
+export interface CardData {
+  id: number;
+  images: { image: string }[];
+  name: string;
+  subtitle: string;
+  description: string;
+  price: number;
+  discount_price?: string;
+}
+
+export interface BaseResponseI<T> {
+  count: number;
+  next: null | string;
+  previous: null | string;
+  results: T;
+}
+
 export default async function Page({ params, searchParams }: InitialObject) {
-
-  // const search = searchParams.name || "";
-  //   let brands: BaseResponseI<Brand[]> | null = null;
-  //   brands = await BrandUtils.searchBrandsByName({ search });
-  //   const brandList = brands?.results ?? [];
-
-
+  const search = searchParams.name;
+  let products: BaseResponseI<Brand[]> | null = null;
+  products = await ProductsUtils.getCategoryProducts(searchParams);
+  const productList = products?.results ?? [];
 
   return (
     <section className="catalog-items mb-80 ">
@@ -39,7 +54,18 @@ export default async function Page({ params, searchParams }: InitialObject) {
                 <h2 className="font-bold text-4xl">Товары</h2>
               </div>
               <div className="cards w-full grid grid-cols-3 gap-8 mt-9 lg:overflow-hidden lg:grid-cols-3 max-lg:flex max-lg:gap-4 max-lg:overflow-x-auto max-lg:grid-cols-none">
-                <Card />
+                {products?.results?.map((product) => (
+                  <div className="cardWords w-full ss" key={product.id}>
+                    <Card
+                      id={product.id}
+                      images={product.images}
+                      title={product.name}
+                      subtitle={product.subtitle}
+                      description={product.description}
+                      discount={product.discount_price}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             <div className="pagination flex items-center gap-4 mt-24 justify-center">

@@ -1,6 +1,23 @@
 import { BaseResponseI, CardData } from "@/components/Cards";
 import axiosInstance from "@/app/axios/axios";
 
+export interface CardData {
+  id: number;
+  images: { image: string }[];
+  name: string;
+  subtitle: string;
+  description: string;
+  price: number;
+  discount_price?: string;
+}
+
+export interface BaseResponseI<T> {
+  count: number;
+  next: null | string;
+  previous: null | string;
+  results: T;
+}
+
 export class ProductsUtils {
   static async getProducts(): Promise<BaseResponseI<CardData[]>> {
     try {
@@ -60,7 +77,9 @@ export class ProductsUtils {
     }
   }
 
-  static async getProductByBrand(id: number): Promise<BaseResponseI<CardData[]>> {
+  static async getProductByBrand(
+    id: number
+  ): Promise<BaseResponseI<CardData[]>> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products/?brand=${id}`
@@ -68,8 +87,19 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
-      
     }
   }
-
+  static async getCategoryProducts(
+    searchParams: any
+  ): Promise<BaseResponseI<CardData[]>> {
+    try {
+      const queryParams = new URLSearchParams(searchParams).toString();
+      const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
+        `/products/?${queryParams}`
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error("Failed to fetch product by ID:", error);
+    }
+  }
 }
