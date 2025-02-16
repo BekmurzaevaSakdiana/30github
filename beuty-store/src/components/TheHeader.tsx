@@ -92,7 +92,7 @@ const TheHeader = () => {
                 )}
               </button>
 
-              <Link href="/Cart" className="cart flex items-center gap-2">
+              <Link href="/cart" className="cart flex items-center gap-2">
                 <div className="cart bg-maBlue w-9 h-9 rounded-full flex items-center justify-center">
                   <img
                     className="w-7 h-6 mt-1"
@@ -111,7 +111,7 @@ const TheHeader = () => {
                 </div>
               </Link>
 
-              <div className="cart flex items-center gap-2">
+              <Link href="/orders" className="cart flex items-center gap-2">
                 <img src="/svg/iconCart.svg" alt="" />
 
                 <div className="cart-title">
@@ -122,7 +122,7 @@ const TheHeader = () => {
                     заказаные товары
                   </h3>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

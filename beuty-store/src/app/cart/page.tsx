@@ -3,7 +3,7 @@ import React from "react";
 const CartItems = () => {
   return (
     <section className=" ">
-      <h1 className="py-12  font-bold text-4xl text-center bg-gradient w-full mb-8">
+      <h1 className="py-12 font-montseratt  font-bold text-4xl text-center bg-gradient w-full mb-8">
         Корзина
       </h1>
       <div className="container ">
