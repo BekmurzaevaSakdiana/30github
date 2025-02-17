@@ -1,15 +1,12 @@
 "use client";
+import MainTitle from "@/components/ui/MainTitle";
 import React, { useState } from "react";
 
 const HelpItems = () => {
 
   return (
     <section className="contacts-section">
-      <div className="main-title bg-gradient">
-        <h1 className="py-16 t font-bold text-5xl text-center font-montseratt">
-          Помощь
-        </h1>
-      </div>
+     <MainTitle text="Помощь"/>
 
       <div className="container">
         <div className="helpCard__items mt-12 flex flex-col items-center gap-12">

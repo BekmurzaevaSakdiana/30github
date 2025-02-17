@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BrandUtils } from "@/requests/brandsReq";
 import SearchInput from "@/components/SearchInput";
 import { InitialObject } from "@/types/modules";
+import MainTitle from "@/components/ui/MainTitle";
 
 interface Brand {
   id: number;
@@ -25,11 +26,7 @@ const BrandsItems = async ({ searchParams }: InitialObject) => {
 
   return (
     <section className="contacts-section">
-      <div className="main-title bg-gradient">
-        <h1 className="py-16 font-bold text-5xl text-center font-montseratt">
-          Бренды
-        </h1>
-      </div>
+     <MainTitle text="Бренды"/>
 
       <div className="container">
         <div className="brandsItems mt-16">

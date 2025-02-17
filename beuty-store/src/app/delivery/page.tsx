@@ -1,11 +1,10 @@
+import MainTitle from "@/components/ui/MainTitle";
 import React from "react";
 
 const DeliveryItems = () => {
   return (
     <section className=" ">
-      <h1 className="py-12 font-bold text-5xl text-center bg-gradient w-full mb-8 font-montseratt">
-        Доставка и оплата
-      </h1>
+    <MainTitle text="Доставка и оплата"/>
       
       {/* Информация о доставке */}
       <div className="container px-4">

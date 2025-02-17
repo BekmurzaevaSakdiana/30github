@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import MainTitle from "@/components/ui/MainTitle";
 import  {ProductsUtils}  from "@/requests/productsReq";
 
 export interface CardData {
@@ -27,11 +28,7 @@ const Popular = async () => {
 
   return (
     <section className="contacts-section">
-      <div className="main-title bg-gradient">
-        <h1 className="py-16  font-bold text-5xl text-center font-montseratt">
-          Популярное
-        </h1>
-      </div>
+      <MainTitle text="Популярное"/>
 
       <div className="container">
         <div className="popular-items mt-16">

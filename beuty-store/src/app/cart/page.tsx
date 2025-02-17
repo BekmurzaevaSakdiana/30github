@@ -1,11 +1,12 @@
+import MainTitle from "@/components/ui/MainTitle";
 import React from "react";
 
 const CartItems = () => {
   return (
     <section className=" ">
-      <h1 className="py-12 font-montseratt  font-bold text-4xl text-center bg-gradient w-full mb-8">
-        Корзина
-      </h1>
+   
+   <MainTitle text="Корзина"/>
+
       <div className="container ">
         <div className="cartItems flex flex-col items-center ">
           <div className="cartItem shadow-lg rounded-lg px-4 flex items-center w-[90%] justify-between mb-6 ">

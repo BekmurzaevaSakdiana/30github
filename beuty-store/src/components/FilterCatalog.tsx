@@ -24,26 +24,7 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   const search = useSearchParams();
   const router = useRouter();
 
-  // const handleSearch = () => {
-  //   const current = new URLSearchParams(Array.from(search.entries()));
-  //   router.push(`?${current.toString()}`, { scroll: false });
-  // };
 
-  // 
-
-  const handleSearch = () => {
-    const current = new URLSearchParams();
-    
-    // Пример для добавления всех фильтров
-    if (priceFrom) current.set('price_from', priceFrom);
-    if (priceTo) current.set('price_to', priceTo);
-    subCategory.forEach((subcategory) => {
-      current.append('subcategory', subcategory);
-    });
-  
-    router.push(`?${current.toString()}`, { scroll: false });
-  };
-  
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -57,8 +38,10 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
       }
     };
 
-    fetchBrands();
-  }, []);
+    if (params.id) {
+      fetchBrands();
+    }
+  }, [params.id]);
 
   useEffect(() => {
     const fetchSubCategories = async () => {
@@ -77,17 +60,13 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     fetchSubCategories();
   }, [params.id]);
 
-
-  // 
   useEffect(() => {
     if (searchParams) {
       const filters = new URLSearchParams(searchParams);
-      setPriceFrom(filters.get('price_from') ?? '');
-      setPriceTo(filters.get('price_to') ?? '');
-      // Обновление фильтров подкатегории и брендов
+      setPriceFrom(filters.get("price_from") ?? "");
+      setPriceTo(filters.get("price_to") ?? "");
     }
   }, [searchParams]);
-  
 
   const handlePriceChange = (type: "from" | "to", value: string) => {
     if (type === "from") {
@@ -129,6 +108,19 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     }
 
     router.push(`?${current.toString()}`, { scroll: false });
+  };
+
+    const handleSearch = () => {
+    const current = new URLSearchParams();
+
+    if (priceFrom) current.set("price_from", priceFrom);
+    if (priceTo) current.set("price_to", priceTo);
+    subCategory.forEach((subcategory) => {
+      current.append("subcategory", subcategory);
+    });
+
+    router.push(`?${current.toString()}`, { scroll: false });
+    updateProducts(current);
   };
 
   const clearFilters = () => {
@@ -235,7 +227,9 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
                 <p className="font-bold text-lg mt-8">Бренд</p>
                 {loading ? (
                   <p>Загрузка...</p>
-                ) : allBrands?.results.length > 0 ? (
+                ) : allBrands &&
+                  allBrands.results &&
+                  allBrands.results.length > 0 ? (
                   allBrands.results.map((brand, index) => (
                     <div
                       key={index}

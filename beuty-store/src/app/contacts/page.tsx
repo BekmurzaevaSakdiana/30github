@@ -1,13 +1,10 @@
+import MainTitle from "@/components/ui/MainTitle";
 import React from "react";
 
 const ContactsItems = () => {
   return (
     <section className="contacts-section">
-    <div className="main-title bg-gradient">
-      <h1 className="py-16  font-bold text-5xl text-center font-montseratt">
-        Контакты
-      </h1>
-    </div>
+    <MainTitle text="Контакты"/>
   
     <div className="container">
       

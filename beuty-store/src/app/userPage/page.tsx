@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../store/slice/loginSlice";
 import ModalConfirm from "@/components/ModalConfirm";
+import MainTitle from "@/components/ui/MainTitle";
 
 const UserPage = () => {
   const { data: userData } = useSelector((state: RootState) => state.login);
@@ -15,11 +16,7 @@ const UserPage = () => {
 
   return (
     <section className="min-h-screen ">
-      <div className="main-title bg-gradient">
-        <h1 className="py-16 t font-bold text-5xl text-center font-montseratt">
-          Ваши данные
-        </h1>
-      </div>
+      <MainTitle text="Ваши данные"/>
 
       <div className="container mt-20 mx-auto p-5 bg-white shadow-lg rounded-lg max-w-4xl">
         <div className="space-y-8">
