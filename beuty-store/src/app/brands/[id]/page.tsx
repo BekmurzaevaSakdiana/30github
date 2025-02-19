@@ -2,6 +2,7 @@ import React from "react";
 import Card from "@/components/Card";
 import GoBack from "@/components/goBack";
 import { ProductsUtils } from "@/requests/productsReq";
+import MainTitle from "@/components/ui/MainTitle";
 
 interface PageProps {
   searchParams: { name?: string };
@@ -35,9 +36,7 @@ export default async function Page({ searchParams, params }: PageProps) {
         <div className="arrowLeft absolute left-12 top-4 max-[420px]:left-10 cursor-pointer">
           <GoBack />
         </div>
-        <h1 className="py-16 font-bold text-5xl text-center font-montseratt">
-          {searchParams.name ?? "Hello"}
-        </h1>
+       <MainTitle text={searchParams.name ?? "Hello"}/>
       </div>
 
       <div className="container mb-16">

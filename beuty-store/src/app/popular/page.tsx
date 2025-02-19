@@ -19,12 +19,9 @@ export interface BaseResponseI<T> {
   results: T;
 }
 
-
 const Popular = async () => {
     let products: BaseResponseI<CardData[]> | null = null;
-    products = await ProductsUtils.getIsPopularProducts() ;
-    
-
+    products = await ProductsUtils.getIsPopularProducts();
 
   return (
     <section className="contacts-section">
@@ -34,8 +31,8 @@ const Popular = async () => {
         <div className="popular-items mt-16">
           
           <div className="cards-items">
-            {
-              products?.results?.map((product) => (
+            {products?.results?.length ? (
+              products.results.map((product) => (
                 <div className="cardWords w-full" key={product.id}>
                   <Card
                     id={product.id}
@@ -47,7 +44,10 @@ const Popular = async () => {
                     discount={product.discount_price}
                   />
                 </div>
-              ))}
+              ))
+            ) : (
+              <p className="text-center text-gray-500">Нет популярных товаров</p>
+            )}
           </div>
         </div>
       </div>

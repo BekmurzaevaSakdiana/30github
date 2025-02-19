@@ -116,25 +116,30 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     if (priceFrom) current.set("price_from", priceFrom);
     if (priceTo) current.set("price_to", priceTo);
     subCategory.forEach((subcategory) => {
-      current.append("subcategory", subcategory);
-    });
+      console.log(subcategory);
+      
+        current.append("subcategory", subcategory?.id);
+    });  
 
     router.push(`?${current.toString()}`, { scroll: false });
-    updateProducts(current);
   };
 
   const clearFilters = () => {
-    const current = new URLSearchParams();
-
-    const nameValue = search.get("name");
-    if (nameValue) {
-      current.set("name", nameValue);
+    const current = new URLSearchParams(search.toString()); // Копируем текущие параметры
+  
+    // Сбрасываем все фильтры, кроме "name"
+    for (const key of current.keys()) {
+      if (key !== "name") {
+        current.delete(key);
+      }
     }
+  
     router.push(`?${current.toString()}`, { scroll: false });
-
+  
     setPriceFrom("");
     setPriceTo("");
   };
+  
 
   return (
     <div className="catalogItems mt-10">

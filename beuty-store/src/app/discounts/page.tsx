@@ -9,7 +9,7 @@ export interface CardData {
   subtitle: string;
   description: string;
   price: number;
-  discount_price?:string;
+  discount_price?: string;
 }
 
 export interface BaseResponseI<T> {
@@ -29,21 +29,23 @@ const Discounts = async () => {
       
       <div className="container mt-16">
         <div className="cards-items">
-          <div className="cards-items">
-            {products?.results?.map((products) => (
-              <div className="cardWords w-full ss" key={products.id}>
+          {products?.results?.length ? (
+            products.results.map((product) => (
+              <div className="cardWords w-full" key={product.id}>
                 <Card
-                  id={products.id}
-                  images={products.images}
-                  title={products.name}
-                  subtitle={products.subtitle}
-                  description={products.description}
-                  price={products.price}
-                  discount={products.discount_price}
-                ></Card>
+                  id={product.id}
+                  images={product.images}
+                  title={product.name}
+                  subtitle={product.subtitle}
+                  description={product.description}
+                  price={product.price}
+                  discount={product.discount_price}
+                />
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">Нет товаров со скидками</p>
+          )}
         </div>
       </div>
     </section>

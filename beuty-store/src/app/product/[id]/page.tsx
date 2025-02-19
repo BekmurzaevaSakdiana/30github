@@ -2,6 +2,7 @@ import GoBack from "@/components/goBack";
 import CouterBtn from "@/components/CouterBtn";
 import { ProductsUtils } from "@/requests/productsReq";
 import ProductSlider from "@/components/ProductSlider";
+import MainTitle from "@/components/ui/MainTitle";
 
 export interface CardData {
   id: number;
@@ -10,7 +11,7 @@ export interface CardData {
   subtitle: string;
   description: string;
   price: number;
-  discount_price?:string;
+  discount_price?: string;
 }
 
 export interface BaseResponseI<T> {
@@ -32,11 +33,7 @@ const PageProduct = async ({ params }: ProductPageProps) => {
 
   return (
     <section className="contacts-section ">
-      <div className="main-title bg-gradient">
-        <h1 className="py-16 font-bold text-5xl text-center font-montseratt">
-          {products.name}
-        </h1>
-      </div>
+      <MainTitle text={products.name} />
       <div className="container mt-8 lg:mt-16">
         <div className="mb-8 lg:mb-12">
           <GoBack />
@@ -71,6 +68,5 @@ const PageProduct = async ({ params }: ProductPageProps) => {
     </section>
   );
 };
-
 
 export default PageProduct;
