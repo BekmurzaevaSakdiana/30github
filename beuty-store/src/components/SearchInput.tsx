@@ -13,7 +13,7 @@ const SearchInput: React.FC = () => {
   }, [searchParams]);
 
   const handleSearch = () => {
-    router.push(`/brands?name=${inputValue}`); 
+    router.push(`/brands?name=${inputValue}`);
   };
 
   return (
@@ -22,11 +22,9 @@ const SearchInput: React.FC = () => {
         e.preventDefault();
         handleSearch();
       }}
-      
       className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4"
     >
-      <div className="search flex items-center gap-4 bg-gray-300 px-5 py-2 rounded-3xl max-sm:flex-1">
-        <img src="/svg/searchIcon.svg" alt="search icon" />
+      <div className="search flex items-center justify-between gap-4 bg-gray-300 px-5 py-2 rounded-3xl max-sm:flex-1">
         <div className="input__mainHeader max-sm:max-w-2xl">
           <input
             className="w-full bg-transparent outline-none"
@@ -36,10 +34,11 @@ const SearchInput: React.FC = () => {
             onChange={(e) => setInputValue(e.target.value)}
           />
         </div>
+
+        <button type="submit">
+          <img src="/svg/searchIcon.svg" alt="search icon" />
+        </button>
       </div>
-      <button className="underline" type="submit">
-        Поиск
-      </button>
     </form>
   );
 };

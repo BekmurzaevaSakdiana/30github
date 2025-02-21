@@ -39,14 +39,14 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
             <hr className="w-full" />
 
             <Link
-              href={isLogined ? "/LoginAuth" : "/UserPage"}
+              href={isLogined ? "/loginAuth" : "/userPage"}
               className="text-maHalfBlack font-medium text-base"
             >
               Аккаунт
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Cart"
+              href="/cart"
               className="text-maHalfBlack font-medium text-base"
             >
               Корзина
@@ -68,7 +68,7 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
                 {categories?.results?.map((category) => (
                   <li key={category.id}>
                     <Link
-                      href={`/Catalog/${category.id}?name=${category.name}`}
+                      href={`/catalog/${category.id}?name=${category.name}`}
                       className="cursor-pointer text-white font-medium text-lg hover:text-maHalfBlack transition-all duration-200 linear"
                     >
                       {category.name}
@@ -80,42 +80,42 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
             </li>
 
             <Link
-              href="/Brands"
+              href="/brands"
               className="text-maHalfBlack font-medium text-base"
             >
               Бренды
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Popular"
+              href="/popular"
               className="text-maHalfBlack font-medium text-base"
             >
               Популярное
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Stock"
+              href="/stock"
               className="text-maHalfBlack font-medium text-base"
             >
               Акции
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Contacts"
+              href="/contacts"
               className="text-maHalfBlack font-medium text-base"
             >
               Контакты
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Delivery"
+              href="/delivery"
               className="text-maHalfBlack font-medium text-base"
             >
               Доставка и оплата
             </Link>
             <hr className="w-full" />
             <Link
-              href="/Help"
+              href="/help"
               className="text-maHalfBlack font-medium text-base"
             >
               Помощь

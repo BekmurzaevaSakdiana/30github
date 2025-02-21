@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@reduxjs/toolkit/query";
 import { getProfile, setLoggedIn } from "../../store/slice/loginSlice";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import SearchInput from "./SearchInput";
 
 const TheHeader = () => {
   const [openBurgerModal, setOpenBurgerModal] = useState(false);
@@ -47,16 +48,7 @@ const TheHeader = () => {
             </div>
 
             <div className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4">
-              <div className="search flex items-center gap-4 bg-gray-300  px-5 py-2 rounded-3xl  max-sm:flex-1">
-                <img src="/svg/searchIcon.svg" alt="" />
-                <div className="input__mainHeader max-sm:max-w-2xl">
-                  <input
-                    className=" w-full bg-transparent outline-none "
-                    type="search"
-                    placeholder="Что вы ищите?"
-                  />
-                </div>
-              </div>
+              <SearchInput />
 
               <div
                 onClick={handleBurgerModal}
@@ -128,7 +120,9 @@ const TheHeader = () => {
         </div>
       </div>
 
-      {openBurgerModal && <BurgerMenu onClose={() => setOpenBurgerModal(false)} />}
+      {openBurgerModal && (
+        <BurgerMenu onClose={() => setOpenBurgerModal(false)} />
+      )}
     </header>
   );
 };
