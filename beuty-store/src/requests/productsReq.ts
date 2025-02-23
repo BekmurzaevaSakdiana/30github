@@ -74,7 +74,7 @@ export class ProductsUtils {
         throw new Error(`Failed to fetch product: ${error.response.status}`);
       } else {
       }
-    }
+    } 
   }
 
   static async getProductByBrand(
