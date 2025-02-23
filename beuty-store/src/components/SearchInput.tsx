@@ -18,17 +18,25 @@ const SearchInput: React.FC = () => {
   }, [searchParams]);
   
 
-  const handleSearch = () => {
-    router.push(`/brands?name=${inputValue}`);
-  };
+  // const handleSearch = () => {
+  //   router.push(`/brands?name=${inputValue}`);
+  // };
 
-  
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      router.replace(`/brands?name=${inputValue}`);
+    }, 300); // Добавляем debounce, чтобы запросы не отправлялись на каждый ввод моментально
+
+    return () => clearTimeout(delayDebounce);
+  }, [inputValue, router]);
+
+
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        handleSearch();
+        
       }}
       className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4"
     >
