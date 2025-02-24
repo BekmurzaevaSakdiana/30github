@@ -273,3 +273,4 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
 };
 
 export default FilterCatalog;
+

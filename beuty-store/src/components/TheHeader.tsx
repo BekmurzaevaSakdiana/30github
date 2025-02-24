@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@reduxjs/toolkit/query";
 import { getProfile, setLoggedIn } from "../../store/slice/loginSlice";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import SearchInput from "./SearchInput";
+import SearchInputHeader from "./SearchInputHeader";
 
 const TheHeader = () => {
   const [openBurgerModal, setOpenBurgerModal] = useState(false);
@@ -48,7 +48,7 @@ const TheHeader = () => {
             </div>
 
             <div className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4">
-              <SearchInput />
+              <SearchInputHeader />
 
               <div
                 onClick={handleBurgerModal}
