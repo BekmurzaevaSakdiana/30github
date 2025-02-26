@@ -185,6 +185,8 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
             brands={allBrands?.results || []} 
             clearFilters={clearFilters} 
             params={params}
+            updateSearchParams={updateSearchParams}
+            searchParams={searchParams}
           />
 
           <form className="max-xl:hidden">
