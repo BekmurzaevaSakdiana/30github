@@ -130,7 +130,7 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   };
 
   const clearFilters = () => {
-    const current = new URLSearchParams(search.toString()); 
+    const current = new URLSearchParams(search.toString());
 
     for (const key of current.keys()) {
       if (key !== "name") {
@@ -171,7 +171,6 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
             >
               Поиск
             </button>
-
           </div>
 
           <FilterCatalogModal
@@ -182,8 +181,8 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
             setPriceTo={setPriceTo}
             isOpen={isFilterModalOpen}
             onClose={handleFilterModal}
-            brands={allBrands?.results || []} 
-            clearFilters={clearFilters} 
+            brands={allBrands?.results || []}
+            clearFilters={clearFilters}
             params={params}
             updateSearchParams={updateSearchParams}
             searchParams={searchParams}
@@ -204,12 +203,14 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
                     >
                       <input
                         type="checkbox"
-                        checked={search.get("subcategory") === String(item.id)}
+                        checked={search
+                          .getAll("subcategory")
+                          .includes(String(item.id))}
                         onChange={() =>
                           updateSearchParams(
                             "subcategory",
                             String(item.id),
-                            false
+                            true
                           )
                         }
                         className="px-4"
