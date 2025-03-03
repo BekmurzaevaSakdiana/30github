@@ -30,64 +30,54 @@
 
 // export default SearchInputHeader;
 
-
-
 "use client";
 
-import { useState } from "react";
-import axiosInstance from "@/app/axios/axios";
+import React, { useState } from "react";
+import { useSearchParams } from "next/navigation"; // импортируем useSearchParams
+import { CardData } from "@/components/Cards"; 
 
-const SearchInputHeader: React.FC = () => {
-  const [query, setQuery] = useState("");
+interface SearchInputHeaderProps {
+  onSearch: (products: CardData[]) => void;
+}
 
-  const handleSearch = async (e: React.FormEvent) => {
+const SearchInputHeader: React.FC<SearchInputHeaderProps> = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const searchParams = useSearchParams(); // получаем параметры из URL
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Функция для обновления параметров поиска в URL
+  const updateSearchParams = (query: string) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("search", query); // обновляем параметр search
+    window.history.replaceState(null, "", `?${newParams.toString()}`); // обновляем URL без перезагрузки
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) return; // Проверка на пустую строку
-
-    try {
-      const searchParams = { search: query }; // Формируем параметры
-      const products = await getCategoryProducts(searchParams);
-
-      if (products?.data.length) {
-        console.log("Найденные товары:", products.data);
-      } else {
-        console.log("Ничего не найдено");
-      }
-    } catch (error) {
-      console.error("Ошибка поиска:", error);
+    if (searchQuery) {
+      updateSearchParams(searchQuery); // обновляем параметры URL
     }
   };
 
   return (
-    <form onSubmit={handleSearch} className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4">
+    <form className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4" onSubmit={handleSearch}>
       <div className="search flex items-center justify-between gap-4 bg-gray-300 px-5 py-2 rounded-3xl max-sm:flex-1">
         <div className="input__mainHeader max-sm:max-w-2xl">
           <input
             className="w-full bg-transparent outline-none"
             type="text"
             placeholder="Что вы ищите?"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+
         <button type="submit">
           <img src="/svg/searchIcon.svg" alt="search icon" />
         </button>
       </div>
     </form>
   );
-};
-
-
-const getCategoryProducts = async (searchParams: any) => {
-  try {
-    const queryParams = new URLSearchParams(searchParams).toString();
-    const response = await axiosInstance.get(`/products/?${queryParams}`);
-    return response.data;
-  } catch (error) {
-    console.error("Ошибка получения данных:", error);
-    return null;
-  }
 };
 
 export default SearchInputHeader;

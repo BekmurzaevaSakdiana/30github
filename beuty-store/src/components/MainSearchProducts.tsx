@@ -1,40 +1,45 @@
-import React from "react";
-import Card from "@/components/Card";
-import { ProductsUtils } from "@/requests/productsReq";
-import MainTitle from "@/components/ui/MainTitle";
+"use client";
 
-interface PageProps {
-  searchParams: { name?: string };
-  params: { id: string };
-}
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation"; // для получения параметров из URL
+import axiosInstance from "@/app/axios/axios"; // импортируем axios для запроса
+import { CardData } from "@/components/Cards"; 
+import Card from "@/components/Card"; 
 
-export interface CardData {
-  id: number;
-  images: { image: string }[];
-  name: string;
-  subtitle: string;
-  description: string;
-  price: number;
-  discount_price?: string;
-}
+const MainSearchProduct: React.FC = () => {
+  const searchParams = useSearchParams(); // получаем параметры из URL
+  const searchQuery = searchParams.get("search") || ""; // получаем значение параметра search
+  const [products, setProducts] = useState<CardData[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
+  const getProducts = async (query: string) => {
+    if (!query) return; // если нет параметра поиска, не выполняем запрос
+    setLoading(true);
+    try {
+      const response = await axiosInstance(`products/?search=${query}`);
+      const data = await response.json();
+      setProducts(data.results);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-export default async function MainSearchProduct({ searchParams, params }: PageProps) {
-  let productsByBrands: BaseResponseI<CardData[]> | null = null;
-  productsByBrands = await ProductsUtils.getProductByBrand(params.id);
+  useEffect(() => {
+    if (searchQuery) {
+      getProducts(searchQuery); // делаем запрос при изменении search параметра
+    }
+  }, [searchQuery]);
 
   return (
     <section className="contacts-section">
-      <div className="container mb-16">
-        <div className="cards mt-16 flex items-center justify-around flex-wrap ">
-          {productsByBrands?.results?.length ? (
-            productsByBrands.results.map((product) => (
+      <div className="container">
+        <div className="cards mt-16 flex items-center justify-around flex-wrap">
+          {loading ? (
+            <p>Loading...</p>
+          ) : products.length ? (
+            products.map((product) => (
               <Card
                 key={product.id}
                 id={product.id}
@@ -48,11 +53,13 @@ export default async function MainSearchProduct({ searchParams, params }: PagePr
             ))
           ) : (
             <p className="text-gray-500 text-xl mt-12 text-center">
-              Нет товаров для этого бренда.
+              Нет товаров для этого поиска.
             </p>
           )}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default MainSearchProduct;

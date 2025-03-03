@@ -8,7 +8,7 @@ import { ProductsUtils } from "@/requests/productsReq";
 export default async  function Home() {
   return (
    <>
-    {/* {productsByBrands?.results?.length ? <MainSearchProduct params={{ id: "someBrandId" }} searchParams={{}} /> : null} */}
+    <MainSearchProduct />
    <SwiperSection/>
     <Cards/>
     <WhyUs/>
