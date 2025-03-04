@@ -16,15 +16,15 @@ const MainSearchProduct: React.FC = () => {
     if (!query) return; // если нет параметра поиска, не выполняем запрос
     setLoading(true);
     try {
-      const response = await axiosInstance(`products/?search=${query}`);
-      const data = await response.json();
-      setProducts(data.results);
+      const response = await axiosInstance.get(`products/?search=${query}`);
+      setProducts(response.data.results); // axios уже парсит JSON, используем response.data
     } catch (err) {
       console.error("Error fetching products:", err);
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     if (searchQuery) {
