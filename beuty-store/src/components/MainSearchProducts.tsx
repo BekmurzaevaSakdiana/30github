@@ -28,7 +28,7 @@ const MainSearchProduct: React.FC = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      getProducts(searchQuery); // делаем запрос при изменении search параметра
+      getProducts(searchQuery); 
     }
   }, [searchQuery]);
 
