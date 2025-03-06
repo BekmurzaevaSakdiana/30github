@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 
 const SearchInputHeader: React.FC = () => {
@@ -19,7 +19,7 @@ const SearchInputHeader: React.FC = () => {
       if(inputValue.trim()){
         router.replace(`/?search=${inputValue}`)
       }else{
-        router.replace("/")
+        router.push(window.location.pathname); 
       }
      
     }, 300); 
