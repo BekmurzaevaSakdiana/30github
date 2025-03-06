@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation"; // для получения параметров из URL
-import axiosInstance from "@/app/axios/axios"; // импортируем axios для запроса
+import { useSearchParams } from "next/navigation"; 
+import axiosInstance from "@/app/axios/axios"; 
 import { CardData } from "@/components/Cards"; 
 import Card from "@/components/Card"; 
 

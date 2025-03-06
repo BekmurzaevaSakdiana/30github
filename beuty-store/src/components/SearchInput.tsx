@@ -7,20 +7,12 @@ const SearchInput: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const query = searchParams.get("q") || "";
-  //   setInputValue(query);
-  // }, [searchParams]);
 
   useEffect(() => {
     const query = searchParams.get("name") || "";
     setInputValue(query);
   }, [searchParams]);
   
-
-  // const handleSearch = () => {
-  //   router.push(`/brands?name=${inputValue}`);
-  // };
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
