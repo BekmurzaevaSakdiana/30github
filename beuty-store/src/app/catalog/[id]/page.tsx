@@ -34,7 +34,7 @@ export default async function Page({ params, searchParams }: InitialObject) {
     <section className="catalog-items mb-80 ">
       <div className="main-title bg-gradient relative">
         <div className="arrowLeft absolute left-12 top-4 max-[420px]:left-10 cursor-pointer">
-          <GoBack />
+          <GoBack href="/" />
         </div>
         <MainTitle text={searchParams?.name}/>
       </div>
