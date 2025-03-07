@@ -10,7 +10,12 @@ interface FilterCatalogModalProps {
   onClose: () => void;
   brands: { name: string }[];
   clearFilters: () => void;
-  updateSearchParams: (key: string, value: string, isMultiSelect?: boolean) => void;
+  updateSearchParams: (
+    key: string,
+    value: string,
+    isMultiSelect?: boolean
+  ) => void;
+  handleSearch: () => void
 }
 
 export default function FilterCatalogModal({
@@ -24,8 +29,15 @@ export default function FilterCatalogModal({
   brands,
   clearFilters,
   updateSearchParams,
+  handleSearch,
 }: FilterCatalogModalProps) {
   if (!isOpen) return null;
+
+  const handleSearchAndClose = () => {
+    handleSearch(); 
+    onClose(); 
+  };
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -38,7 +50,10 @@ export default function FilterCatalogModal({
         <h3 className="font-semibold mt-6">Подкатегории</h3>
         <div className="flex items-start flex-col gap-4 mt-3 max-h-60 overflow-y-auto">
           {subCategory.map((sub) => (
-            <div key={sub.id} className="text-gray-700 text-sm flex items-center gap-3">
+            <div
+              key={sub.id}
+              className="text-gray-700 text-sm flex items-center gap-3"
+            >
               <input
                 type="checkbox"
                 id={`sub-${sub.id}`}
@@ -75,7 +90,10 @@ export default function FilterCatalogModal({
           <h3 className="font-semibold">Бренды</h3>
           <div className="flex items-start flex-col gap-4 mt-3 max-h-20 overflow-y-auto">
             {brands.map((brand) => (
-              <div key={brand.name} className="text-gray-700 text-sm flex items-center gap-3">
+              <div
+                key={brand.name}
+                className="text-gray-700 text-sm flex items-center gap-3"
+              >
                 <input
                   type="checkbox"
                   id={`brand-${brand.name}`}
@@ -87,11 +105,13 @@ export default function FilterCatalogModal({
           </div>
         </div>
 
-        {/* Кнопка очистки */}
-        <div className="flex items-center justify-center">
+        {/* Кнопка очистки или поиска */}
+        <div className="flex items-center flex-col gap-2 mt-12">
+          <button onClick={handleSearchAndClose} className="underline">Поиск</button>
+
           <button
             onClick={clearFilters}
-            className="mt-12 rounded-lg text-white px-3 py-1 bg-black hover:bg-red-600"
+            className=" rounded-lg text-white px-3 py-1 bg-black hover:bg-red-600"
           >
             Очистить
           </button>
@@ -100,4 +120,3 @@ export default function FilterCatalogModal({
     </div>
   );
 }
-

@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { BrandUtils } from "@/requests/brandsReq";
 import axiosInstance from "@/app/axios/axios";
@@ -22,6 +21,7 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   const [isFilterModalOpen, setFilterModalOpen] = useState(false);
 
   const [miniVersion, setIsMiniVersion] = useState<boolean>(false);
+
   const [loading, setLoading] = useState<boolean>(true);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [priceFrom, setPriceFrom] = useState<string>("");
@@ -154,18 +154,18 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
         <aside className="max-w-60 w-full border-r-2 max-xl:border-none max-xl:max-w-32">
           <div className="aside-title flex items-center gap-4">
             <div className="">
-              <h2 className="font-bold text-4xl max-xl:bg-maBlue max-xl:px-4 max-xl:py-1 max-xl:text-white ">
+              <h2 className="font-bold text-4xl max-md:bg-maBlue max-md:px-4 max-md:py-1 max-md:text-white ">
                 Фильтр
               </h2>
               <button
-                className="block xl:hidden px-4 mt-2 hover:text-maBlue"
+                className="block md:hidden px-4 mt-2 hover:text-maBlue"
                 onClick={handleFilterModal}
               >
                 Открыть фильтр
               </button>
             </div>
             <button
-              className="underline text-sm"
+              className="underline text-sm max-md:hidden"
               type="button"
               onClick={handleSearch}
             >
@@ -186,9 +186,11 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
             params={params}
             updateSearchParams={updateSearchParams}
             searchParams={searchParams}
+            handleSearch={handleSearch}
+            
           />
 
-          <form className="max-xl:hidden">
+          <form className="max-md:hidden">
             <div className="typeof">
               <p className="font-bold text-lg mt-8">{name}</p>
 
