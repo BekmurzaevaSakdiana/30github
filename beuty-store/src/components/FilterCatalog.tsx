@@ -1,18 +1,29 @@
 "use client";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { BrandUtils } from "@/requests/brandsReq";
 import axiosInstance from "@/app/axios/axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import FilterCatalogModal from "./FilterCatalogModal";
+import { Dispatch } from "@reduxjs/toolkit";
 
 interface FilterCatalogProps {
   params: {
     id: string;
   };
-  searchParams: any;
+  searchParams: URLSearchParams; 
   name?: string;
 }
+
+interface SubCategory {
+  id: string;
+  name: string;
+}
+
+interface Brand {
+  name: string;
+}
+
 
 const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   const [allBrands, setAllBrands] = useState<{
@@ -23,7 +34,8 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   const [miniVersion, setIsMiniVersion] = useState<boolean>(false);
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [subCategory, setSubCategory] = useState<string[]>([]);
+  const [subCategory, setSubCategory] = useState<SubCategory[]>([]);
+
   const [priceFrom, setPriceFrom] = useState<string>("");
   const [priceTo, setPriceTo] = useState<string>("");
   const search = useSearchParams();
@@ -80,7 +92,8 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
       setPriceTo(value);
     }
 
-    const current = new URLSearchParams(Array.from(search.entries()));
+    const current = new URLSearchParams(search.toString());
+
 
     if (value) {
       current.set(`price_${type}`, value);

@@ -17,7 +17,7 @@ const MainSearchProduct: React.FC = () => {
     setLoading(true);
     try {
       const response = await axiosInstance.get(`products/?search=${query}`);
-      setProducts(response.data.results); // axios уже парсит JSON, используем response.data
+      setProducts(response.data.results); 
     } catch (err) {
       console.error("Error fetching products:", err);
     } finally {
