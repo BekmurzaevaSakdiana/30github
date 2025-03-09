@@ -128,19 +128,37 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     router.push(`?${current.toString()}`, { scroll: false });
   };
 
+  // const handleSearch = () => {
+  //   const current = new URLSearchParams();
+
+  //   if (priceFrom) current.set("price_from", priceFrom);
+  //   if (priceTo) current.set("price_to", priceTo);
+  //   subCategory.forEach((subcategory) => {
+  //     console.log(subcategory);
+
+  //     current.append("subcategory", subcategory?.id);
+  //   });
+
+  //   router.push(`?${current.toString()}`, { scroll: false });
+  // };
+
+
   const handleSearch = () => {
     const current = new URLSearchParams();
-
-    if (priceFrom) current.set("price_from", priceFrom);
-    if (priceTo) current.set("price_to", priceTo);
+  
+    if (priceFrom) current.set("price_min", priceFrom);
+    if (priceTo) current.set("price_max", priceTo);
     subCategory.forEach((subcategory) => {
-      console.log(subcategory);
-
-      current.append("subcategory", subcategory?.id);
+      current.append("sub_category", subcategory?.id);
     });
-
+  
+    current.set("is_new", "unknown");
+    current.set("is_popular", "unknown");
+  
     router.push(`?${current.toString()}`, { scroll: false });
   };
+  
+ 
 
   const clearFilters = () => {
     const current = new URLSearchParams(search.toString());
