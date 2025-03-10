@@ -5,7 +5,6 @@ import axiosInstance from "@/app/axios/axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import FilterCatalogModal from "./FilterCatalogModal";
-import { Dispatch } from "@reduxjs/toolkit";
 
 interface FilterCatalogProps {
   params: {
