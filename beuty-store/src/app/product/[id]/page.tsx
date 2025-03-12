@@ -55,6 +55,13 @@ const PageProduct = async ({ params }: ProductPageProps) => {
                   {products.price}
                 </span>
               </p>
+
+              <p className="text-lg lg:text-xl">
+              Артикул:{" "}
+                <span className="font-bold text-buttonPink">
+                  {products.article}
+                </span>
+              </p>
               <div className="couter-cart flex flex-col items-start gap-4 mt-4">
                 <CouterBtn />
                 <button className="bg-buttonPink text-white px-4 py-2 rounded-lg text-lg hover:bg-pink-600 transition">
