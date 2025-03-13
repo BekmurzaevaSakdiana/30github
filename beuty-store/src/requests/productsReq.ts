@@ -89,17 +89,39 @@ export class ProductsUtils {
       console.error("Failed to fetch product by ID:", error);
     }
   }
+  // static async getCategoryProducts(
+  //   searchParams: any
+  // ): Promise<BaseResponseI<CardData[]>> {
+  //   try {
+  //     const queryParams = new URLSearchParams(searchParams).toString();
+  //     const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
+  //       `/products/?${queryParams}`
+  //     );
+  //     return response.data;
+  //   } catch (error: any) {
+  //     console.error("Failed to fetch product by ID:", error);
+  //   }
+  // }
+
   static async getCategoryProducts(
-    searchParams: any
-  ): Promise<BaseResponseI<CardData[]>> {
+    searchParams: Record<string, string> // уточнил тип для searchParams
+  ): Promise<BaseResponseI<CardData[]> | null> {
     try {
+      // Преобразуем searchParams в строку запроса
       const queryParams = new URLSearchParams(searchParams).toString();
+      
+      // Выполняем GET-запрос с параметрами
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products/?${queryParams}`
       );
+      
+      // Возвращаем данные из ответа
       return response.data;
-    } catch (error: any) {
-      console.error("Failed to fetch product by ID:", error);
+    } catch (error) {
+      // Логируем ошибку и возвращаем null
+      console.error("Failed to fetch products:", error);
+      return null;  // Возвращаем null, если запрос не удался
     }
   }
+  
 }
