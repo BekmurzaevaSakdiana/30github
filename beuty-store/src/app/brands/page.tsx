@@ -3,20 +3,10 @@ import { BrandUtils } from "@/requests/brandsReq";
 import SearchInput from "@/components/SearchInput";
 import { InitialObject } from "@/types/modules";
 import MainTitle from "@/components/ui/MainTitle";
+import { BaseResponseI,Brand } from "@/types/modules";
 
-interface Brand {
-  id: number;
-  name: string;
-  description: string;
-  logo: string;
-}
 
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
+
 
 const BrandsItems = async ({ searchParams }: InitialObject) => {
   const search = searchParams.name || "";

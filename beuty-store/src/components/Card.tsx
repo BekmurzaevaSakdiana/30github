@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 interface CardProps {
   images: { image: string }[];
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
   id: number | string;
   price?: number;

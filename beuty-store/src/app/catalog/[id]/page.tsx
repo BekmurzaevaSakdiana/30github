@@ -6,23 +6,9 @@ import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
 import { useSearchParams } from "next/navigation";
 import React from "react";
+import { BaseResponseI,CardData,Brand } from "@/types/modules";
 
-export interface CardData {
-  id: number;
-  images: { image: string }[];
-  name: string;
-  subtitle: string;
-  description: string;
-  price: number;
-  discount_price?: string;
-}
 
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
 
 export default async function Page({ params, searchParams }: InitialObject) {
   const search = searchParams.name;

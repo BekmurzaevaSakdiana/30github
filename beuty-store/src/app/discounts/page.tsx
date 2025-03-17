@@ -1,23 +1,7 @@
 import Card from "@/components/Card";
 import MainTitle from "@/components/ui/MainTitle";
 import { ProductsUtils } from "@/requests/productsReq";
-
-export interface CardData {
-  id: number;
-  images: { image: string }[];
-  name: string;
-  subtitle: string;
-  description: string;
-  price: number;
-  discount_price?: string;
-}
-
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
+import { BaseResponseI,CardData } from "@/types/modules";
 
 const Discounts = async () => {
   let products: BaseResponseI<CardData[]> | null = null;

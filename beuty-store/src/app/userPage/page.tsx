@@ -6,6 +6,8 @@ import { logoutUser } from "../../../store/slice/loginSlice";
 import ModalConfirm from "@/components/ModalConfirm";
 import MainTitle from "@/components/ui/MainTitle";
 
+
+
 const UserPage = () => {
   const { data: userData } = useSelector((state: RootState) => state.login);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
