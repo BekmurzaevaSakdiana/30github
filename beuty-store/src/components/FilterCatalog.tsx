@@ -5,6 +5,7 @@ import axiosInstance from "@/app/axios/axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import FilterCatalogModal from "./FilterCatalogModal";
+import { Brand } from "@/types/modules";
 
 interface FilterCatalogProps {
   params: {
@@ -19,9 +20,7 @@ interface SubCategory {
   name: string;
 }
 
-interface Brand {
-  name: string;
-}
+
 
 
 const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
@@ -127,21 +126,6 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     router.push(`?${current.toString()}`, { scroll: false });
   };
 
-  // const handleSearch = () => {
-  //   const current = new URLSearchParams();
-
-  //   if (priceFrom) current.set("price_from", priceFrom);
-  //   if (priceTo) current.set("price_to", priceTo);
-  //   subCategory.forEach((subcategory) => {
-  //     console.log(subcategory);
-
-  //     current.append("subcategory", subcategory?.id);
-  //   });
-
-  //   router.push(`?${current.toString()}`, { scroll: false });
-  // };
-
-
   const handleSearch = () => {
     const current = new URLSearchParams();
   
@@ -213,9 +197,9 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
             onClose={handleFilterModal}
             brands={allBrands?.results || []}
             clearFilters={clearFilters}
-            params={params}
+            params={params as any}
             updateSearchParams={updateSearchParams}
-            searchParams={searchParams}
+            searchParams={searchParams as any}
             handleSearch={handleSearch}
             
           />

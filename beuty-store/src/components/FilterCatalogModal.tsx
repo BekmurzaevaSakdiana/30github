@@ -15,7 +15,9 @@ interface FilterCatalogModalProps {
     value: string,
     isMultiSelect?: boolean
   ) => void;
-  handleSearch: () => void
+  handleSearch: () => void;
+  params:any;
+  searchParams: URLSearchParams;
 }
 
 export default function FilterCatalogModal({
