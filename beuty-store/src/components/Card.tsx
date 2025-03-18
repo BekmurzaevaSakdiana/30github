@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({
       className="cardItem w-[300px] block bg-white py-6 px-1 rounded-lg"
       style={{ boxShadow: "0px 0px 10px 0px #0000002B" }}
     >
-      <div className="cardItem__top">
+      <div className="cardItem__top flex-1">
         <div className="cardItem__topImg">
           <Swiper
             pagination={{
@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({
           </Swiper>
         </div>
 
-        <p className="font-normal text-maBlue text-xs text-center mt-2">
+        <p className="font-normal text-maBlue text-xs text-center mt-2 ">
           {title}
         </p>
         <p className="font-normal text-xs text-center text-fiftyProcentBlack mt-1">
@@ -63,8 +63,8 @@ const Card: React.FC<CardProps> = ({
         </p>
       </div>
 
-      <div className="cardItem__bottom">
-        <h3 className="mt-1 font-semibold text-sm text-maHzBlack text-center w-64 mx-auto ">
+      <div className="cardItem__bottom flex-1 flex flex-col justify-between">
+        <h3 className="mt-1 font-semibold text-sm text-maHzBlack text-center w-64 mx-auto overflow-y-scroll max-h-32 ">
           {description}
         </h3>
         <div className="price flex flex-col items-center mt-4">

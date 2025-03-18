@@ -1,25 +1,8 @@
-import { BaseResponseI, CardData } from "@/components/Cards";
 import axiosInstance from "@/app/axios/axios";
-
-export interface CardData {
-  id: number;
-  images: { image: string }[];
-  name: string;
-  subtitle: string;
-  description: string;
-  price: number;
-  discount_price?: string;
-}
-
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
+import { BaseResponseI, CardData } from "@/types/modules";
 
 export class ProductsUtils {
-  static async getProducts(): Promise<BaseResponseI<CardData[]>> {
+  static async getProducts(): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         "/products/"
@@ -27,9 +10,11 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
+      return undefined; // возвращаем undefined в случае ошибки
     }
   }
-  static async getIsNewPoducts(): Promise<BaseResponseI<CardData[]>> {
+
+  static async getIsNewPoducts(): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         "/products/?is_new=true"
@@ -37,10 +22,11 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
+      return undefined;
     }
   }
 
-  static async getIsPopularProducts(): Promise<BaseResponseI<CardData[]>> {
+  static async getIsPopularProducts(): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         "/products/?is_popular=true"
@@ -48,10 +34,11 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
+      return undefined;
     }
   }
 
-  static async getHasDiscountProducts(): Promise<BaseResponseI<CardData[]>> {
+  static async getHasDiscountProducts(): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         "/products/?has_discount=true"
@@ -59,10 +46,11 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
+      return undefined;
     }
   }
 
-  static async getByIdProduct(id: number): Promise<BaseResponseI<CardData[]>> {
+  static async getByIdProduct(id: number): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products/${id}`
@@ -70,16 +58,11 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
-      if (error.response) {
-        throw new Error(`Failed to fetch product: ${error.response.status}`);
-      } else {
-      }
-    } 
+      return undefined; // возвращаем undefined в случае ошибки
+    }
   }
 
-  static async getProductByBrand(
-    id: number
-  ): Promise<BaseResponseI<CardData[]>> {
+  static async getProductByBrand(id: number): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products/?brand=${id}`
@@ -87,11 +70,13 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
+      return undefined;
     }
   }
+
   static async getCategoryProducts(
     searchParams: any
-  ): Promise<BaseResponseI<CardData[]>> {
+  ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const queryParams = new URLSearchParams(searchParams).toString();
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
@@ -100,6 +85,7 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
+      return undefined;
     }
   }
 }

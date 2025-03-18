@@ -10,7 +10,7 @@ export default async  function Home() {
    <>
     <MainSearchProduct />
    <SwiperSection/>
-    <Cards/>
+    <Cards text={""}/>
     <WhyUs/>
     <Mission/>
 

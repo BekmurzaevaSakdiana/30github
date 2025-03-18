@@ -1,5 +1,5 @@
 import axiosInstance from "@/app/axios/axios";
-import { InitialObject, ResponseType } from "@/types/modules";
+import { InitialObject, BaseResponseI } from "@/types/modules";
 import { id } from "intl-tel-input/i18n";
 
 interface Brand {
@@ -45,7 +45,7 @@ export class BrandUtils {
   static async getBrandsByProduct(productId: string) {
     // получить бренды, связанные с продуктом по его ID.
     try {
-      const response = await axiosInstance.get<ResponseType<Brand[]>>(
+      const response = await axiosInstance.get<BaseResponseI<Brand[]>>(
         `/products/brands/`
       );
       return response.data;
@@ -57,7 +57,7 @@ export class BrandUtils {
   static async getBrandsByCategory(category: string) {
     //  получить бренды, относящиеся к определенной категории.
     try {
-      const response = await axiosInstance.get<ResponseType<Brand[]>>(
+      const response = await axiosInstance.get<BaseResponseI<Brand[]>>(
         `/brand/?category=${category} `
       );
 

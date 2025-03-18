@@ -33,6 +33,7 @@ export interface BaseResponseI<T> {
 }
 
 export interface Brand {
+  price: number | undefined;
   discount_price?: string | undefined;
   images: { image: string; }[];
   id: number;

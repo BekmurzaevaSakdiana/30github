@@ -2,30 +2,13 @@ import Link from "next/link";
 import Card from "./Card";
 import Title from "./ui/Title";
 import { ProductsUtils } from "@/requests/productsReq";
-
-export interface CardData {
-  id: number;
-  images: { image: string }[];
-  name: string;
-  subtitle: string;
-  description: string;
-  price: number;
-  discount_price?:string;
-
-}
-
-export interface BaseResponseI<T> {
-  count: number;
-  next: null | string;
-  previous: null | string;
-  results: T;
-}
+import { CardData,BaseResponseI } from "@/types/modules";
 
 interface CardsProps {
   text: string;
 }
 
-const Cards: React.FC<CardsProps> = async ({ text }) => {
+const Cards: React.FC<CardsProps> = async () => {
   let products: BaseResponseI<CardData[]> | null = null;
 
   products = await ProductsUtils.getIsNewPoducts();
@@ -45,6 +28,7 @@ const Cards: React.FC<CardsProps> = async ({ text }) => {
                 id={product.id}
                 images={product.images}
                 title={product.name}
+                price={product.price}
                 subtitle={product.subtitle}
                 description={product.description}
                 discount={product.discount_price}

@@ -6,15 +6,14 @@ import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
 import { useSearchParams } from "next/navigation";
 import React from "react";
-import { BaseResponseI,CardData,Brand } from "@/types/modules";
-
-
+import { BaseResponseI, CardData, Brand } from "@/types/modules";
 
 export default async function Page({ params, searchParams }: InitialObject) {
   const search = searchParams.name;
   let products: BaseResponseI<Brand[]> | null = null;
   products = await ProductsUtils.getCategoryProducts(searchParams);
   const productList = products?.results ?? [];
+  console.log(search);
 
   return (
     <section className="catalog-items mb-80 ">
@@ -22,9 +21,9 @@ export default async function Page({ params, searchParams }: InitialObject) {
         <div className="arrowLeft absolute left-12 top-4 max-[420px]:left-10 cursor-pointer">
           <GoBack href="/" />
         </div>
-        <MainTitle text={searchParams?.name}/>
+        <MainTitle text={search || "Название не задано"} />
       </div>
- 
+
       <div className="container px-0 ">
         <div className="filterCatalog__products px-14 flex items-baseline justify-between gap-12 max-xl:flex-col  max-xl:gap-20 max-xl:px-14">
           <FilterCatalog
@@ -39,7 +38,7 @@ export default async function Page({ params, searchParams }: InitialObject) {
                 <div className="products-title flex items-center gap-8 max-lg:flex-col max-xl:items-start">
                   <h2 className="font-bold text-4xl">Товары</h2>
                 </div>
-                <div className="cards w-full grid grid-cols-3 gap-8 mt-9 lg:overflow-hidden lg:grid-cols-3 max-lg:flex max-lg:gap-4 max-lg:overflow-x-auto max-lg:grid-cols-none">
+                <div className="cards w-full flex items-center gap-2 flex-wrap mt-9 lg:overflow-hidden max-lg:overflow-x-auto ">
                   {products?.results?.map((product) => (
                     <div className="cardWords w-full ss" key={product.id}>
                       <Card
@@ -48,6 +47,7 @@ export default async function Page({ params, searchParams }: InitialObject) {
                         title={product.name}
                         subtitle={product.subtitle}
                         description={product.description}
+                        price={product.price}
                         discount={product.discount_price}
                       />
                     </div>
