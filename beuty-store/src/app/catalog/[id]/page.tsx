@@ -10,8 +10,8 @@ import { BaseResponseI, CardData, Brand } from "@/types/modules";
 
 export default async function Page({ params, searchParams }: InitialObject) {
   const search = searchParams.name;
-  let products: BaseResponseI<Brand[]> | null = null;
-  products = await ProductsUtils.getCategoryProducts(searchParams);
+  // let products: BaseResponseI<Brand[]> | null|undefined = null;
+  let products = await ProductsUtils.getCategoryProducts(searchParams);
   const productList = products?.results ?? [];
   console.log(search);
 

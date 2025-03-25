@@ -50,12 +50,12 @@ export class ProductsUtils {
     }
   }
 
-  static async getByIdProduct(id: number): Promise<BaseResponseI<CardData[]> | undefined> {
+  static async getByIdProduct(id: number): Promise<CardData | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products/${id}`
       );
-      return response.data;
+      return  response.data.results ? response.data.results[0] : undefined;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
       return undefined; // возвращаем undefined в случае ошибки
