@@ -64,6 +64,7 @@ export class BrandUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch brands for category:", error);
+      return null
     }
   }
 }

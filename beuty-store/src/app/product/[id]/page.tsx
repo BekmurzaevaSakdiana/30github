@@ -17,7 +17,7 @@ const PageProduct = async ({ params }: ProductPageProps) => {
 
   return (
     <section className="contacts-section ">
-      <MainTitle text={products?.name ?? "adasdasdads"} />
+      <MainTitle text={products?.name || 'adasd'} />
 
       <div className="container mt-8 lg:mt-16">
         <div className="mb-8 lg:mb-12">

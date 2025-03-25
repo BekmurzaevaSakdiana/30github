@@ -7,12 +7,11 @@ import { useRouter } from "next/navigation";
 import FilterCatalogModal from "./FilterCatalogModal";
 import { Brand } from "@/types/modules";
 
-
 interface FilterCatalogProps {
   params: {
     id: string;
   };
-  searchParams: URLSearchParams; 
+  searchParams: URLSearchParams;
   name?: string;
 }
 
@@ -21,20 +20,15 @@ interface SubCategory {
   name: string;
 }
 
-
-
-
 const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
   const [allBrands, setAllBrands] = useState<{
     results: { name: string }[];
   } | null>(null);
+
   const [isFilterModalOpen, setFilterModalOpen] = useState(false);
-
   const [miniVersion, setIsMiniVersion] = useState<boolean>(false);
-
   const [loading, setLoading] = useState<boolean>(true);
   const [subCategory, setSubCategory] = useState<SubCategory[]>([]);
-
   const [priceFrom, setPriceFrom] = useState<string>("");
   const [priceTo, setPriceTo] = useState<string>("");
   const search = useSearchParams();
@@ -42,6 +36,7 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
 
   const handleFilterModal = () => setFilterModalOpen((prev) => !prev);
 
+ 
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -58,6 +53,7 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
       fetchBrands();
     }
   }, [params.id]);
+
 
   useEffect(() => {
     const fetchSubCategories = async () => {
@@ -92,7 +88,6 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
     }
 
     const current = new URLSearchParams(search.toString());
-
 
     if (value) {
       current.set(`price_${type}`, value);
@@ -129,20 +124,18 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
 
   const handleSearch = () => {
     const current = new URLSearchParams();
-  
+
     if (priceFrom) current.set("price_min", priceFrom);
     if (priceTo) current.set("price_max", priceTo);
     subCategory.forEach((subcategory) => {
       current.append("sub_category", subcategory?.id);
     });
-  
+
     current.set("is_new", "unknown");
     current.set("is_popular", "unknown");
-  
+
     router.push(`?${current.toString()}`, { scroll: false });
   };
-  
- 
 
   const clearFilters = () => {
     const current = new URLSearchParams(search.toString());
@@ -313,4 +306,3 @@ const FilterCatalog = ({ params, searchParams, name }: FilterCatalogProps) => {
 };
 
 export default FilterCatalog;
-
