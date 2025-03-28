@@ -13,4 +13,20 @@ export class CategoryUtils {
       return null;
     }
   }
+
+  static async getCategoryById(id:string) {
+    try {
+      const response = await axiosInstance.get<Category>(
+        `/categories/${id}/`
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error("Ошибка загрузки категорий:", error);
+      return null;
+    }
+  }
+
+
+
+ 
 }

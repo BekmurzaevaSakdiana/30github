@@ -26,6 +26,7 @@ export interface CardData {
 }
 
 export interface BaseResponseI<T> {
+  name: any;
   count: number;
   next: null | string;
   previous: null | string;
@@ -44,7 +45,7 @@ export interface Brand {
 }
 
 export interface Category extends BaseItemType {
-  name: string;
+  name?: string;
   slug: string;
   sub_category: string;
 }

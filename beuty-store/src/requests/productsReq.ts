@@ -74,18 +74,18 @@ export class ProductsUtils {
     }
   }
 
-  static async getCategoryProducts(
-    searchParams: any
-  ): Promise<BaseResponseI<CardData[]> | undefined> {
-    try {
-      const queryParams = new URLSearchParams(searchParams).toString();
-      const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        `/products/?${queryParams}`
-      );
-      return response.data;
-    } catch (error: any) {
-      console.error("Failed to fetch product by ID:", error);
-      return undefined;
-    }
-  }
+  // static async getCategoryProducts(
+  //   searchParams: any
+  // ): Promise<BaseResponseI<CardData[]> | undefined> {
+  //   try {
+  //     const queryParams = new URLSearchParams(searchParams).toString();
+  //     const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
+  //       `/products/?${queryParams}`
+  //     );
+  //     return response.data;
+  //   } catch (error: any) {
+  //     console.error("Failed to fetch product by ID:", error);
+  //     return undefined;
+  //   }
+  // }
 }

@@ -4,8 +4,8 @@ import  {ProductsUtils}  from "@/requests/productsReq";
 import { BaseResponseI,CardData } from "@/types/modules";
 
 const Popular = async () => {
-    let products: BaseResponseI<CardData[]> | null = null;
-    products = await ProductsUtils.getIsPopularProducts();
+    let products: BaseResponseI<CardData[]> | null| undefined = null;
+    products = await ProductsUtils.getCategoryProducts();
 
   return (
     <section className="contacts-section">
