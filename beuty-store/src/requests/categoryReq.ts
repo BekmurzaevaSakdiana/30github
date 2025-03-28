@@ -1,8 +1,6 @@
 import axiosInstance from "@/app/axios/axios";
 import { BaseItemType, BaseResponseI, Category } from "@/types/modules";
 
-
-
 export class CategoryUtils {
   static async getCategory() {
     try {

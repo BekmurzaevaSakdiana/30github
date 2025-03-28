@@ -5,10 +5,10 @@ import MainTitle from "@/components/ui/MainTitle";
 import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
 import React from "react";
-import { BaseResponseI, CardData, Brand } from "@/types/modules";
+import { BaseResponseI, CardData } from "@/types/modules";
 
 export default async function Page({ params, searchParams }: InitialObject) {
-  const search = params?.name;
+  const search = searchParams?.name;
   let products = await ProductsUtils.getCategoryProducts(searchParams);
   const productList = products?.results ?? [];
   console.log("Текущий searchParams:", searchParams);

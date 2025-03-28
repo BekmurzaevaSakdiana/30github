@@ -17,7 +17,7 @@ const SearchInput: React.FC = () => {
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       router.replace(`/brands?name=${inputValue}`);
-    }, 300); // Добавляем debounce, чтобы запросы не отправлялись на каждый ввод моментально
+    }, 300); 
 
     return () => clearTimeout(delayDebounce);
   }, [inputValue, router]);
