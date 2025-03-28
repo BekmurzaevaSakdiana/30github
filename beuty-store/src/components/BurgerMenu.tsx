@@ -1,5 +1,4 @@
 "use client";
-// import { RootState } from "@reduxjs/toolkit/query";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +64,7 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
                   !isActiveSmth ? "h-0" : "max-h-36"
                 } overflow-y-auto transition`}
               >
-                {categories?.results?.map((category) => (
+                {categories?.results?.map((category: { id: React.Key | null | undefined; name: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }) => (
                   <li key={category.id}>
                     <Link
                       href={`/catalog/${category.id}?name=${category.name}`}

@@ -1,9 +1,9 @@
-"use client";
+'use client'
 import React from "react";
 import { useRouter } from "next/navigation";
 
 interface GoBackProps {
-  href?: string; // Необязательный пропс для кастомного URL
+  href?: string;
 }
 
 export default function GoBack({ href }: GoBackProps) {
@@ -11,9 +11,9 @@ export default function GoBack({ href }: GoBackProps) {
 
   const handleBack = () => {
     if (href) {
-      router.push(href); // Перенаправление на указанный URL
+      router.push(href); 
     } else {
-      router.back(); // Возврат на предыдущую страницу
+      router.back(); 
     }
   };
 
@@ -23,3 +23,4 @@ export default function GoBack({ href }: GoBackProps) {
     </div>
   );
 }
+

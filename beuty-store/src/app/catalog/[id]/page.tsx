@@ -4,16 +4,14 @@ import GoBack from "@/components/goBack";
 import MainTitle from "@/components/ui/MainTitle";
 import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
-import { useSearchParams } from "next/navigation";
 import React from "react";
 import { BaseResponseI, CardData, Brand } from "@/types/modules";
 
 export default async function Page({ params, searchParams }: InitialObject) {
-  const search = searchParams.name;
-  // let products: BaseResponseI<Brand[]> | null|undefined = null;
+  const search = params?.name;
   let products = await ProductsUtils.getCategoryProducts(searchParams);
   const productList = products?.results ?? [];
-  console.log(search);
+  console.log("Текущий searchParams:", searchParams);
 
   return (
     <section className="catalog-items mb-80 ">

@@ -4,14 +4,14 @@ export interface BaseSliceType<T> {
   error: any;
 }
 
-export  interface BaseItemType {
-  id: string
-  createAt: string
-  updateAt: string
+export interface BaseItemType {
+  id: string;
+  createAt: string;
+  updateAt: string;
 }
 
 export interface InitialObject {
-  [key:string]: any
+  [key: string]: any;
 }
 
 export interface CardData {
@@ -22,7 +22,7 @@ export interface CardData {
   description: string;
   price: number;
   discount_price?: string;
-  article?:string,
+  article?: string;
 }
 
 export interface BaseResponseI<T> {
@@ -35,11 +35,16 @@ export interface BaseResponseI<T> {
 export interface Brand {
   price: number | undefined;
   discount_price?: string | undefined;
-  images: { image: string; }[];
+  images: { image: string }[];
   id: number;
   name: string;
   description: string;
   logo?: string;
-  subtitle?:string;
+  subtitle?: string;
+}
 
+export interface Category extends BaseItemType {
+  name: string;
+  slug: string;
+  sub_category: string;
 }

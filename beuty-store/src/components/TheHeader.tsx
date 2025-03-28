@@ -105,7 +105,7 @@ const TheHeader = () => {
 
               <Link href="/orders" className="cart flex items-center gap-2">
                 <img src="/svg/iconCart.svg" alt="" />
-
+                
                 <div className="cart-title">
                   <p className="text__header text__header font-light text-xs text-maBlack">
                     Мои товары

@@ -12,7 +12,8 @@ const SecondHeader = () => {
     setOpenModalCatalog((prev) => !prev);
   };
 
-  const getLinkClass = (path) => {
+  const getLinkClass = (
+    path: string) => {
     return pathname === path
       ? "text-black font-bold text-lg cursor-pointer"
       : "text-maHalfBlack text-md font-medium cursor-pointer";
