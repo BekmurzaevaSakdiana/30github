@@ -6,26 +6,25 @@ import { CategoryUtils } from "@/requests/categoryReq";
 import { InitialObject } from "@/types/modules";
 import React from "react";
 
-const Page = async ({ params }: InitialObject) => {
+const Page = async ({ params,searchParams }: InitialObject) => {
   let categoriesId = await CategoryUtils.getCategoryById(params.id);
-  const categoryName = categoriesId?.name ?? "Категория не найдена" ;
-  
+  const categoryName = categoriesId?.name ?? "Категория не найдена";
+
   return (
     <section className="catalog-items mb-80 ">
       <div className="main-title bg-gradient relative">
         <div className="arrowLeft absolute left-12 top-4 max-[420px]:left-10 cursor-pointer">
           <GoBack href="/" />
         </div>
-        <MainTitle text={categoryName} />;
       </div>
-
+      <MainTitle text={categoryName} />;
       <div className="container px-0 ">
         <div className="filterCatalog__products px-14 flex items-baseline justify-between gap-12 max-xl:flex-col  max-xl:gap-20 max-xl:px-14">
-          {/* <FilterCatalog
+          <FilterCatalog
             params={params}
             searchParams={searchParams}
-            name={searchParams?.name}
-          /> */}
+            name={categoryName}
+          />
 
           <div className="twoSection__products w-full max-lg:flex-col">
             <div className="products2 flex-grow mt-20 max-w-4xl w-full max-lg:max-3xl">
