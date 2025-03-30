@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className="cardItem w-[300px] block bg-white py-6 px-1 rounded-lg"
+      className="cardItem max-w-[300px] w-full block bg-white py-6 px-1 rounded-lg mx-auto"
       style={{ boxShadow: "0px 0px 10px 0px #0000002B" }}
     >
       <div className="cardItem__top flex-1">
@@ -64,7 +64,7 @@ const Card: React.FC<CardProps> = ({
       </div>
 
       <div className="cardItem__bottom flex-1 flex flex-col justify-between">
-        <h3 className="mt-1 font-semibold text-sm text-maHzBlack text-center w-64 mx-auto overflow-y-scroll max-h-32 ">
+        <h3 className="mt-1 font-semibold text-sm text-maHzBlack text-center w-64 mx-auto overflow-y-scroll custom-scroll max-h-32 ">
           {description}
         </h3>
         <div className="price flex flex-col items-center mt-4">

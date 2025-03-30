@@ -3,12 +3,18 @@ import FilterCatalog from "@/components/FilterCatalog";
 import GoBack from "@/components/goBack";
 import MainTitle from "@/components/ui/MainTitle";
 import { CategoryUtils } from "@/requests/categoryReq";
+import { ProductsUtils } from "@/requests/productsReq";
 import { InitialObject } from "@/types/modules";
 import React from "react";
 
-const Page = async ({ params,searchParams }: InitialObject) => {
+const Page = async ({ params, searchParams }: InitialObject) => {
   let categoriesId = await CategoryUtils.getCategoryById(params.id);
   const categoryName = categoriesId?.name ?? "Категория не найдена";
+
+  const products =
+    searchParams && Object.keys(searchParams).length > 0
+      ? await ProductsUtils.getFilteredProducts(searchParams)
+      : await ProductsUtils.getProducts();
 
   return (
     <section className="catalog-items mb-80 ">
@@ -27,14 +33,14 @@ const Page = async ({ params,searchParams }: InitialObject) => {
           />
 
           <div className="twoSection__products w-full max-lg:flex-col">
-            <div className="products2 flex-grow mt-20 max-w-4xl w-full max-lg:max-3xl">
+            <div className="products2 flex-grow mt-20  w-full max-lg:max-3xl">
               <div className="productsItems">
                 <div className="products-title flex items-center gap-8 max-lg:flex-col max-xl:items-start">
                   <h2 className="font-bold text-4xl">Товары</h2>
                 </div>
-                {/* <div className="cards w-full flex items-center gap-2 flex-wrap mt-9 lg:overflow-hidden max-lg:overflow-x-auto ">
+                <div className="cards w-full gap-2 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]   mt-9 lg:overflow-hidden max-lg:overflow-x-auto ">
                   {products?.results?.map((product) => (
-                    <div className="cardWords w-full ss" key={product.id}>
+                    <div key={product.id}>
                       <Card
                         id={product.id}
                         images={product.images}
@@ -46,7 +52,7 @@ const Page = async ({ params,searchParams }: InitialObject) => {
                       />
                     </div>
                   ))}
-                </div> */}
+                </div>
               </div>
               <div className="pagination flex items-center gap-4 mt-24 justify-center">
                 <div className="left">
