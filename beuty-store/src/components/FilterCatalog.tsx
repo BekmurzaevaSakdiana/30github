@@ -119,6 +119,30 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
 
   };
 
+  const clearFilters = () => {
+    const current = new URLSearchParams(search.toString());
+  
+    // Удаляем все параметры, кроме 'name'
+    for (const key of current.keys()) {
+      if (key !== "name") {
+        current.delete(key);
+      }
+    }
+  
+    // Если 'name' присутствует, оставляем его в URL
+    if (name) {
+      current.set("name", name);
+    }
+  
+    // Перенаправляем на URL с только 'name' (если оно есть)
+    router.push(`?${current.toString()}`, { scroll: false });
+  
+    // Сбрасываем значения для цен
+    setPriceFrom("");
+    setPriceTo("");
+  };
+  
+
   return (
     <div className="catalogItems mt-10">
       <div className="aside__products">
@@ -236,7 +260,7 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
           </form>
 
           <div className="btn flex items-center justify-center">
-            <button className=" mt-12 text-center text-lg font-medium underline">
+            <button className=" mt-12 text-center text-lg font-medium underline" onClick={clearFilters}>
               Очистить
             </button>
           </div>
