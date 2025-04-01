@@ -10,7 +10,7 @@ export class ProductsUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
-      return undefined; // возвращаем undefined в случае ошибки
+      return undefined; 
     }
   }
 
@@ -79,13 +79,21 @@ export class ProductsUtils {
   ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const queryParams = new URLSearchParams(searchParams).toString();
+      console.clear()
+
+      console.log('searx', queryParams);
+      console.clear()
+      
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        `/products/?${queryParams}`
+        `/products/?${queryParams}&limit=2`
       );
+      console.log(response);
+      
+      console.log("Ответ от сервера:", response.data);
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch product by ID:", error);
-      return undefined;
+      return error;
     }
   }
 }

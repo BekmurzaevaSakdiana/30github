@@ -1,9 +1,11 @@
 "use client";
 import axiosInstance from "@/app/axios/axios";
 import { BrandUtils } from "@/requests/brandsReq";
+import { BaseResponseI, Brand } from "@/types/modules";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import FilterCatalogModal from "./FilterCatalogModal";
 
 interface FilterCatalogProps {
   params: {
@@ -19,21 +21,28 @@ interface SubCategory {
 }
 
 const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
-  const [allBrands, setAllBrands] = useState<{
-    results: { name: string }[];
-  } | null>(null);
+  const [allBrands, setAllBrands] = useState<BaseResponseI<Brand[]> | null>(
+    null
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [sub_category, setSub_category] = useState<SubCategory[]>([]);
-  const [priceFrom, setPriceFrom] = useState<string>();
-  const [priceTo, setPriceTo] = useState<string>();
+  const [priceFrom, setPriceFrom] = useState<string>("");
+  const [priceTo, setPriceTo] = useState<string>("");
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const search = useSearchParams();
   const router = useRouter();
+
+  const checkId = (key: string, id: string) => search.getAll(key).includes(id);
+
+  const handleOpenModal = () => {
+    setOpenFilterModal((prev) => !prev);
+  };
 
   useEffect(() => {
     const fetchBrands = async () => {
       try {
         const brands = await BrandUtils.getBrandsByCategory(params.id);
-        setAllBrands(brands);
+        setAllBrands(brands as any);
       } catch (error: any) {
         console.error("Ошибка", error);
       } finally {
@@ -70,32 +79,26 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
     isMultiSelect = false
   ) => {
     const current = new URLSearchParams(search.toString());
-  
+
     if (isMultiSelect) {
       let values = current.getAll(key);
-  
+
       if (values.includes(value)) {
-        values = values.filter((v) => v !== value); // Удаляем только одно значение
+        values = values.filter((v) => v !== value);
       } else {
-        values.push(value); // Добавляем новое значение
+        values.push(value);
       }
-  
-      current.delete(key); // Удаляем старые записи
-      values.forEach((v) => current.append(key, v)); // Добавляем обновлённые значения
+
+      current.delete(key);
+      values.forEach((v) => current.append(key, v));
     } else {
       current.set(key, value);
     }
-  
-    if (name) {
-      current.set("name", name);
-    }
-  
-    // Добавил console.log для проверки URL
+
     console.log(current.toString());
-  
+
     router.push(`?${current.toString()}`, { scroll: false });
   };
-  
 
   const handlePriceChange = (type: "from" | "to", value: string) => {
     if (type === "from") {
@@ -105,50 +108,47 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
     }
 
     const current = new URLSearchParams(search.toString());
-    if(value){
-      current.set(`price_${type}`,value)
-    }else {
+    if (value) {
+      current.set(`price_${type}`, value);
+    } else {
       current.delete(`price_${type}`);
     }
 
-    if(name){
-      current.set("name",name)
+    if (name) {
+      current.set("name", name);
     }
 
     router.push(`?${current.toString()}`, { scroll: false });
-
   };
 
   const clearFilters = () => {
     const current = new URLSearchParams(search.toString());
-  
-    // Удаляем все параметры, кроме 'name'
+
     for (const key of current.keys()) {
       if (key !== "name") {
         current.delete(key);
       }
     }
-  
-    // Если 'name' присутствует, оставляем его в URL
+
     if (name) {
       current.set("name", name);
     }
-  
-    // Перенаправляем на URL с только 'name' (если оно есть)
+
     router.push(`?${current.toString()}`, { scroll: false });
-  
-    // Сбрасываем значения для цен
+
     setPriceFrom("");
     setPriceTo("");
+    document
+      .querySelectorAll<HTMLInputElement>("input[type='checkbox']")
+      .forEach((checkbox) => (checkbox.checked = false));
   };
-  
 
   return (
     <div className="catalogItems mt-10">
       <div className="aside__products">
         <aside
           style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
-          className="max-w-60 w-full px-12 py-12 rounded-xl"
+          className="max-w-60 w-full px-12 py-12 rounded-xl max-md:max-w-0 max-xl:max-w-full max-xl:w-full"
         >
           <div className="aside-title flex items-center gap-4">
             <h2 className="font-bold text-4xl max-md:bg-maBlue max-md:px-4 max-md:py-1 max-md:text-white">
@@ -156,13 +156,13 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
             </h2>
           </div>
 
-          <form className="max-md:hidden">
+          <form className="max-xl:flex max-xl:justify-between max-xl:items-center max-xl:w-full max-xl:max-w-full">
             <div className="typeof">
               <div className="checkbox flex flex-col gap-3 mt-3">
                 <p>{name}</p>
               </div>
 
-              <div className="checkbox flex flex-col ">
+              <div className="checkbox flex flex-col">
                 <p className="font-bold text-lg mt-8">Подкатегории</p>
                 <div className="allItemS  flex flex-col max-h-24 overflow-y-auto  custom-scroll">
                   {loading ? (
@@ -211,14 +211,14 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
                 placeholder="от"
                 className="outline-none border border-gray-300 rounded-md px-2"
                 value={priceFrom}
-                onChange={(e)=>handlePriceChange("from",e.target.value)}
+                onChange={(e) => handlePriceChange("from", e.target.value)}
               />
               <input
                 type="number"
                 placeholder="до"
                 className="outline-none border border-gray-300 rounded-md px-2"
                 value={priceTo}
-                onChange={(e)=>handlePriceChange("to",e.target.value)}
+                onChange={(e) => handlePriceChange("to", e.target.value)}
               />
             </div>
 
@@ -236,15 +236,21 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
                   allBrands.results.map((brand, index) => (
                     <div className="allItems">
                       <div
-                        key={index}
+                        key={brand.id}
                         className="checkbox flex items-center gap-3 mt-3"
                       >
                         <label className="flex items-center gap-2 cursor-pointer">
                           <input
+                            key={brand.id}
                             type="checkbox"
                             className="px-4"
+                            checked={checkId("brand", brand.id + "")}
                             onChange={() =>
-                              updateSearchParams("brand", brand.name, true)
+                              updateSearchParams(
+                                "brand",
+                                String(brand?.id),
+                                true
+                              )
                             }
                           />
                           <p className="text-sm font-normal">{brand.name}</p>
@@ -260,12 +266,41 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
           </form>
 
           <div className="btn flex items-center justify-center">
-            <button className=" mt-12 text-center text-lg font-medium underline" onClick={clearFilters}>
+            <button
+              className=" mt-12 text-center text-lg font-medium underline max-md:hidden"
+              onClick={clearFilters}
+            >
               Очистить
+            </button>
+          </div>
+
+          <div className="btn flex items-center justify-center">
+            <button
+              className=" mt-12 text-center text-lg font-medium underline hidden max-md:block"
+              onClick={handleOpenModal}
+            >
+              Открыть
             </button>
           </div>
         </aside>
       </div>
+      {openFilterModal && (
+        <FilterCatalogModal
+          subCategory={sub_category}
+          priceFrom={priceFrom}
+          setPriceFrom={setPriceFrom}
+          priceTo={priceTo}
+          setPriceTo={setPriceTo}
+          isOpen={openFilterModal}
+          onClose={handleOpenModal}
+          brands={allBrands ? allBrands.results : []}
+          clearFilters={clearFilters}
+          updateSearchParams={updateSearchParams}
+          handleSearch={() => router.push(`?${search.toString()}`)}
+          params={params}
+          searchParams={search}
+        />
+      )}
     </div>
   );
 };
