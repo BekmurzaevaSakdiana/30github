@@ -97,12 +97,15 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
     router.push(`?${current.toString()}`, { scroll: false });
   };
 
-
   const handlePriceChange = (type: "from" | "to", value: string) => {
     if (type === "from") {
-      setPriceFrom(value);
+      if (+value >= 0) {
+        setPriceFrom(value);
+      }
     } else {
-      setPriceTo(value);
+      if (+value >= 0) {
+        setPriceTo(value);
+      }
     }
 
     const current = new URLSearchParams(search.toString());
@@ -120,32 +123,20 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
   };
 
   const clearFilters = () => {
-    const current = new URLSearchParams(search.toString());
-
-    for (const key of current.keys()) {
-      if (key !== "name") {
-        current.delete(key);
-      }
-    }
-
-    if (name) {
-      current.set("name", name);
-    }
-
-    router.push(`?${current.toString()}`, { scroll: false });
-
+    router.replace(window.location.pathname);
     setPriceFrom("");
     setPriceTo("");
     setTimeout(() => {
       document
-        .querySelectorAll<HTMLInputElement>("input[type='checkbox'], input[type='radio']")
+        .querySelectorAll<HTMLInputElement>(
+          "input[type='checkbox'], input[type='radio']"
+        )
         .forEach((input) => (input.checked = false));
     }, 0);
-
   };
 
   return (
-    <div className="catalogItems mt-10">
+    <div className="catalogItems mt-10 max-xl:w-full">
       <div className="aside__products">
         <aside
           style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
@@ -159,7 +150,7 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
 
           <form className="w-full">
             <div className=" max-xl:flex max-xl:justify-between max-xl:items-baseline max-xl:gap-8 ">
-              <div className="typeof w-full">
+              <div className="typeof ">
                 <div className="checkbox max-xl:hidden flex flex-col gap-3 mt-3">
                   <p>{name}</p>
                 </div>
@@ -188,7 +179,11 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
                                 name="sub_categories"
                                 className="px-4"
                                 onChange={() =>
-                                  updateSearchParams('sub_categories',item.id,false)
+                                  updateSearchParams(
+                                    "sub_categories",
+                                    item.id,
+                                    false
+                                  )
                                 }
                               />
                               <p className="text-sm font-normal">{item.name}</p>
@@ -203,7 +198,7 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
                 </div>
               </div>
 
-              <div className="price flex flex-col gap-3 w-full">
+              <div className="price flex flex-col gap-3 ">
                 <p className="font-bold text-lg mt-8">Цена</p>
                 <input
                   type="number"
@@ -221,7 +216,7 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
                 />
               </div>
 
-              <div className="brands w-full">
+              <div className="brands ">
                 <p className="font-bold text-lg mt-8">Бренды</p>
 
                 <div className="allItemS flex flex-col max-h-24 overflow-y-auto  custom-scroll">
@@ -277,15 +272,6 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
               Очистить
             </button>
           </div>
-
-          {/* <div className="btn flex items-center justify-center">
-            <button
-              className=" mt-12 text-center text-lg font-medium underline hidden max-md:block"
-              // onClick={handleOpenModal}
-            >
-              Открыть
-            </button>
-          </div> */}
         </aside>
       </div>
     </div>
