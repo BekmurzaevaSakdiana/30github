@@ -2,6 +2,7 @@ import axiosInstance from "@/app/axios/axios";
 import { BaseResponseI, CardData } from "@/types/modules";
 
 export class ProductsUtils {
+
   static async getProducts(): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
