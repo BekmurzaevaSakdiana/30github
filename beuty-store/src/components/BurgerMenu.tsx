@@ -43,33 +43,43 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
         </div>
         <nav>
           <ul className="flex flex-col items-start text-start gap-3">
-            <Link href="/" className="text-maHalfBlack font-medium text-base">
-              На главное
-            </Link>
-            <hr className="w-full" />
+            <li onClick={onClose}>
+              <Link href="/" className="text-maHalfBlack font-medium text-base">
+                На главное
+              </Link>
+            </li>
 
-            <Link
-              href={isLoggedIn ? "/userPage" : "/loginAuth"}
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Аккаунт
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/cart"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Корзина
-            </Link>
-            <hr className="w-full" />
+            <li onClick={onClose}>
+              <Link
+                href={isLoggedIn ? "/userPage" : "/loginAuth"}
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Аккаунт
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/cart"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Корзина
+              </Link>
+            </li>
             <li className="text-maHalfBlack cursor-pointer w-full font-medium text-base">
               <div
-                className="w-full pb-2"
+                className="w-full pb-2 flex items-center justify-between"
                 onClick={() => setIsActiveSmth((prev) => !prev)}
               >
                 Каталог
+                <img
+                  className={`w-4 h-4 transform transition-transform duration-300 ${
+                    isActiveSmth ? "rotate-90" : "-rotate-90"
+                  }`}
+                  src="/svg/left.png"
+                  alt=""
+                />{" "}
               </div>
-              <hr className="w-full mb-2" />
               <div
                 className={`pl-4 flex flex-col gap-2 ${
                   !isActiveSmth ? "h-0" : "max-h-36"
@@ -79,7 +89,7 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
                   <p>Загрузка...</p>
                 ) : categories?.results && categories.results.length > 0 ? (
                   categories.results.map((category) => (
-                    <li key={category.id}>
+                    <li onClick={onClose} key={category.id}>
                       <Link
                         href={`/catalog/${category.id}?name=${category.name}`}
                         className="cursor-pointer text-white font-medium text-lg hover:text-maHalfBlack transition-all duration-200 linear"
@@ -95,47 +105,59 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
               </div>
             </li>
 
-            <Link
-              href="/brands"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Бренды
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/popular"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Популярное
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/stock"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Акции
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/contacts"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Контакты
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/delivery"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Доставка и оплата
-            </Link>
-            <hr className="w-full" />
-            <Link
-              href="/help"
-              className="text-maHalfBlack font-medium text-base"
-            >
-              Помощь
-            </Link>
+            <li onClick={onClose}>
+              <Link
+                href="/brands"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Бренды
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/popular"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Популярное
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/stock"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Акции
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/contacts"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Контакты
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/delivery"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Доставка и оплата
+              </Link>
+            </li>
+
+            <li onClick={onClose}>
+              <Link
+                href="/help"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Помощь
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

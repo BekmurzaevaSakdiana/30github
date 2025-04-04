@@ -143,13 +143,13 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
           className="w-full px-12 py-12 rounded-xl "
         >
           <div className="aside-title">
-            <h2 className="font-bold text-4xl max-w-10 w-full max-xl:mx-auto">
+            <h2 className="font-bold text-4xl max-w-10 w-full max-xl:mx-auto max-md:mx-0">
               Фильтр
             </h2>
           </div>
 
           <form className="w-full">
-            <div className=" max-xl:flex max-xl:justify-between max-xl:items-baseline max-xl:gap-8 ">
+            <div className=" max-xl:flex max-xl:justify-between max-xl:items-baseline max-xl:gap-8 flex-wrap">
               <div className="typeof ">
                 <div className="checkbox max-xl:hidden flex flex-col gap-3 mt-3">
                   <p>{name}</p>

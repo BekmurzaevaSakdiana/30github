@@ -43,9 +43,9 @@ const TheHeader = () => {
       <div className="container">
         <div className="header-items flex items-center justify-between  w-full max-xl:px-2 max-md:justify-start ">
           <div className="logo-search flex max-xl:w-full items-center max-sm:flex-col max-xl:justify-between ">
-            <div className="logo relative left-[-20px]">
+            <Link href={"/"} className="logo relative left-[-20px]">
               <img className="w-64" src="/svg/logo2.svg" alt="" />
-            </div>
+            </Link>
 
             <div className="search-burgerMenu max-sm:w-full flex items-center max-sm:justify-between gap-4">
               <SearchInputHeader />

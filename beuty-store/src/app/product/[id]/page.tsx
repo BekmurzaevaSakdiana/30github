@@ -4,6 +4,7 @@ import { ProductsUtils } from "@/requests/productsReq";
 import ProductSlider from "@/components/ProductSlider";
 import MainTitle from "@/components/ui/MainTitle";
 import { CardData, BaseResponseI } from "@/types/modules";
+import ProductBtn from "@/components/ProductBtn";
 
 interface ProductPageProps {
   params: {
@@ -14,6 +15,8 @@ interface ProductPageProps {
 const PageProduct = async ({ params }: ProductPageProps) => {
   let products: CardData | null | undefined = null;
   products = await ProductsUtils.getByIdProduct(params.id);
+
+
 
   return (
     <section className="contacts-section ">
@@ -52,10 +55,8 @@ const PageProduct = async ({ params }: ProductPageProps) => {
                 </span>
               </p>
               <div className="couter-cart flex flex-col items-start gap-4 mt-4">
-                <CouterBtn />
-                <button className="bg-buttonPink text-white px-4 py-2 rounded-lg text-lg hover:bg-pink-600 transition">
-                  Добавить в корзину
-                </button>
+              <ProductBtn productId={products.id} productName={products.name} productPrice={products.price} />
+
               </div>
             </div>
           </div>
