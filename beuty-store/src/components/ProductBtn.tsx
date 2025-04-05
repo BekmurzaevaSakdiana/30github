@@ -32,7 +32,7 @@ const ProductBtn = ({
       name: productName,
       price: productPrice,
       images: productImages,
-      quantity: 1, // можно добавить если хочешь следить за количеством
+      quantity: 1, 
     };
 
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");

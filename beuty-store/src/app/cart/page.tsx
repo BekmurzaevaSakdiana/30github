@@ -12,7 +12,7 @@ const CartItems = () => {
     if (dataLocalStorage) {
       const parsedData = JSON.parse(dataLocalStorage).map((item: CardData) => ({
         ...item,
-        quantity: item.quantity || 1, 
+        quantity: item.quantity || 1,
       }));
       setDataProducts(parsedData);
     }
@@ -21,6 +21,11 @@ const CartItems = () => {
   const updateLocalStorage = (updatedProducts: CardData[]) => {
     localStorage.setItem("cart", JSON.stringify(updatedProducts));
     setDataProducts(updatedProducts);
+  };
+
+  const removeFromCart = (productId: number) => {
+    const updated = dataProducts.filter((item) => item.id !== productId);
+    updateLocalStorage(updated);
   };
 
   const increaseQuantity = (productId: number) => {
@@ -39,7 +44,7 @@ const CartItems = () => {
           ? { ...item, quantity: (item.quantity || 1) - 1 }
           : item
       )
-      .filter((item) => item.quantity > 0); 
+      .filter((item) => item.quantity > 0);
     updateLocalStorage(updated);
   };
 
@@ -108,16 +113,20 @@ const CartItems = () => {
                 </div>
 
                 <div className="cross self-start">
-                  <img className="w-4 max-sm:hidden" src="/svg/cross.svg" alt="Удалить" />
-                  <button className="sm:hidden bg-buttonPink text-white px-2 py-1 rounded-full">
-                    Удалить
-                  </button>
+                  <img
+                    onClick={() => removeFromCart(item.id)}
+                    className="w-4 max-sm:hidden"
+                    src="/svg/cross.svg"
+                    alt="Удалить"
+                  />
                 </div>
               </div>
             ))
           ) : (
             <div className="emptyCart w-full text-center mt-12">
-              <h3 className="text-lg sm:text-xl font-medium">Ваша корзина пуста</h3>
+              <h3 className="text-lg sm:text-xl font-medium">
+                Ваша корзина пуста
+              </h3>
               <p className="text-sm sm:text-md mb-6 sm:mb-12">
                 Добавьте товары, чтобы оформить заказ.
               </p>
