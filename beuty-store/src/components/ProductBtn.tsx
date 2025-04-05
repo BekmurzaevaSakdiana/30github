@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface ProductBtnProps {
   productId: number;
@@ -14,37 +14,46 @@ const ProductBtn = ({
   productPrice,
   productImages,
 }: ProductBtnProps) => {
-  
+  const [isInCart, setIsInCart] = useState(false);
+
+  useEffect(() => {
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const alreadyInCart = existingCart.some(
+      (item: any) => item.id === productId
+    );
+    setIsInCart(alreadyInCart);
+  }, [productId]);
+
   const handleAddToCart = () => {
+    if (isInCart) return;
+
     const item = {
       id: productId,
       name: productName,
       price: productPrice,
       images: productImages,
+      quantity: 1, // можно добавить если хочешь следить за количеством
     };
 
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-    const alreadyInCart = existingCart.some(
-      (cartItem: any) => cartItem.id === productId
-    );
-
-    if (!alreadyInCart) {
-      existingCart.push(item);
-      localStorage.setItem("cart", JSON.stringify(existingCart));
-      alert("Товар добавлен в корзину!");
-    } else {
-      alert("Этот товар уже в корзине.");
-    }
+    existingCart.push(item);
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+    setIsInCart(true);
+    alert("Товар добавлен в корзину!");
   };
 
   return (
     <div className="product-btn-container">
       <button
-        className="bg-buttonPink text-white px-4 py-2 rounded-lg text-lg hover:bg-pink-600 transition"
+        className={`px-4 py-2 rounded-lg text-lg transition ${
+          isInCart
+            ? "bg-gray-400 cursor-not-allowed text-white"
+            : "bg-buttonPink text-white hover:bg-pink-600"
+        }`}
         onClick={handleAddToCart}
+        disabled={isInCart}
       >
-        Добавить в корзину
+        {isInCart ? "Уже в корзине" : "Добавить в корзину"}
       </button>
     </div>
   );
