@@ -10,6 +10,8 @@ import SearchInputHeader from "./SearchInputHeader";
 
 const TheHeader = () => {
   const [openBurgerModal, setOpenBurgerModal] = useState(false);
+  const [cartNotEmpty, setCartNotEmpty] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -26,6 +28,27 @@ const TheHeader = () => {
   const handleBurgerModal = () => {
     setOpenBurgerModal((prev) => !prev);
   };
+
+  useEffect(() => {
+    const checkCart = () => {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCartNotEmpty(cart.length > 0);
+    };
+
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "cart") {
+        checkCart();
+      }
+    };
+
+    checkCart();
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [ ]);
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
@@ -103,9 +126,15 @@ const TheHeader = () => {
                 </div>
               </Link>
 
+              {cartNotEmpty && (
+                <div className="cart-notification absolute  top-5 right-[347px] w-4 h-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">
+                  !
+                </div>
+              )}
+
               <Link href="/orders" className="cart flex items-center gap-2">
-                <img src="/svg/iconCart.svg" alt="" />
-                
+                <img className="" src="/svg/iconCart.svg" alt="" />
+
                 <div className="cart-title">
                   <p className="text__header text__header font-light text-xs text-maBlack">
                     Мои товары

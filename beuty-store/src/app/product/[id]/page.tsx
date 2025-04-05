@@ -1,5 +1,4 @@
 import GoBack from "@/components/goBack";
-import CouterBtn from "@/components/CouterBtn";
 import { ProductsUtils } from "@/requests/productsReq";
 import ProductSlider from "@/components/ProductSlider";
 import MainTitle from "@/components/ui/MainTitle";
@@ -16,11 +15,9 @@ const PageProduct = async ({ params }: ProductPageProps) => {
   let products: CardData | null | undefined = null;
   products = await ProductsUtils.getByIdProduct(params.id);
 
-
-
   return (
     <section className="contacts-section ">
-      <MainTitle text={products?.name || 'adasd'} />
+      <MainTitle text={products?.name || "adasd"} />
 
       <div className="container mt-8 lg:mt-16">
         <div className="mb-8 lg:mb-12">
@@ -29,7 +26,6 @@ const PageProduct = async ({ params }: ProductPageProps) => {
 
         {products && (
           <div className="cartItem shadow-lg rounded-lg p-4 flex flex-col lg:flex-row items-center w-full lg:w-[90%] justify-between mx-auto mb-6 gap-6">
-
             <ProductSlider
               images={products?.images}
               title={products?.subtitle}
@@ -55,8 +51,12 @@ const PageProduct = async ({ params }: ProductPageProps) => {
                 </span>
               </p>
               <div className="couter-cart flex flex-col items-start gap-4 mt-4">
-              <ProductBtn productId={products.id} productName={products.name} productPrice={products.price} />
-
+                <ProductBtn
+                  productId={products.id}
+                  productName={products.name}
+                  productPrice={products.price}
+                  productImages={products.images}
+                />
               </div>
             </div>
           </div>

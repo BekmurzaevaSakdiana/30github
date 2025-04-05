@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { CategoryUtils } from '../requests/categoryReq'; // Импортируйте класс CategoryUtils
+import { CategoryUtils } from '../requests/categoryReq';
 import { Category } from '@/types/modules';
 
 interface ModalCatalogProps {
@@ -14,6 +14,10 @@ const ModalCatalog: React.FC<ModalCatalogProps> = ({ setOpenModalCatalog }) => {
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handleCategoryClick = () => {
+    setOpenModalCatalog(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -59,10 +63,11 @@ const ModalCatalog: React.FC<ModalCatalogProps> = ({ setOpenModalCatalog }) => {
             {error && <p className="text-red-500">Ошибка: {error}</p>}
             {!loading && !error && categories ? (
               categories.map((category) => (
-                <li key={category.id}>
+                <li  key={category.id}>
                   <Link
                     href={`/catalog/${category.id}?name=${category.name}`}
                     className="cursor-pointer text-maHalfBlack font-medium text-lg hover:text-white transition-all duration-200 linear"
+                    onClick={handleCategoryClick} 
                   >
                     {category.name}
                   </Link>
