@@ -1,4 +1,5 @@
 "use client";
+import ToOrderModal from "@/components/ToOrderModal";
 import MainTitle from "@/components/ui/MainTitle";
 import { CardData } from "@/types/modules";
 import Link from "next/link";
@@ -6,6 +7,11 @@ import React, { useEffect, useState } from "react";
 
 const CartItems = () => {
   const [dataProducts, setDataProducts] = useState<CardData[]>([]);
+  const [openModal,setOpenModal]=useState(false)
+
+  const handleModal=()=>{
+    setOpenModal(prev=>!prev)
+  }
 
   useEffect(() => {
     const dataLocalStorage = localStorage.getItem("cart");
@@ -147,13 +153,15 @@ const CartItems = () => {
                   : {calculateTotalPrice()} тг.
                 </span>
               </h2>
-              <button className="rounded-full bg-buttonPink text-white px-8 sm:px-14 py-2 mt-4 hover:bg-buttonPinkDark transition">
+              <button onClick={handleModal} className="rounded-full bg-buttonPink text-white px-8 sm:px-14 py-2 mt-4 hover:bg-buttonPinkDark transition">
                 ЗАКАЗАТЬ
               </button>
             </div>
           )}
         </div>
       </div>
+
+      {openModal && <ToOrderModal handleModal={handleModal}/>}
     </section>
   );
 };
