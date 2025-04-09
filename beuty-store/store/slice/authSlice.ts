@@ -32,8 +32,8 @@ export const registerUser = createAsyncThunk(
         userData
       );
 
-      // const { token: userToken } = response?.data;
-      // localStorage.setItem("userToken", userToken);
+      const { token: userToken } = response?.data;
+      localStorage.setItem("userToken", userToken);
 
       return response?.data;
     } catch (error: any) {

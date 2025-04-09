@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "@/app/axios/axios";
-import { error } from "console";
 
-interface VerifyState<T> {
+interface VerifyState {
   isLoading: boolean;
   isVerified: boolean;
   error: any;
@@ -19,7 +18,7 @@ export const verifyCode=createAsyncThunk(
     'auth/verifyCode',
     async(code:string,{rejectWithValue})=>{
         try{
-            const response=await axiosInstance.post("/accounts/confirm-code/",{code})
+            const response=await axiosInstance.post("/accounts/confirm-code/",{code})   
             const {token}=response.data
             localStorage.setItem("userToken",token)
             return response.data

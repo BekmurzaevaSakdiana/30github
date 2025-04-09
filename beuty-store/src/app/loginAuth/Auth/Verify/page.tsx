@@ -21,7 +21,7 @@ const VerifyPage: React.FC = () => {
 
   useEffect(() => {
     if (isVerified) {
-      router.push("/UserPage");
+      router.push("/userPage");
     }
   }, [isVerified, router]);
 

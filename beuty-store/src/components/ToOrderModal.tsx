@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store"; // путь до твоего store.ts
+import { RootState } from "../../store"; 
 
 const ToOrderModal = ({ handleModal }: any) => {
-  const { data } = useSelector((state: RootState) => state.auth);
+  const { data } = useSelector((state: RootState) => state.login);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -13,20 +13,18 @@ const ToOrderModal = ({ handleModal }: any) => {
     address: "",
   });
 
-  // Заполняем поля при получении данных из стора
   useEffect(() => {
     if (data) {
       setFormData((prev) => ({
         ...prev,
         first_name: data.first_name || "",
-        last_name: data.last_name || "",   // если есть в твоих данных
+        last_name: data.last_name || "", 
         phone: data.phone || "",
-        address: data.address || "",       // если есть в твоих данных
+        address: data.address || "",      
       }));
     }
   }, [data]);
 
-  // Обработчик изменений в input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({

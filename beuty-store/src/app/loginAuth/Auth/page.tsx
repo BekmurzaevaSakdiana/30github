@@ -32,7 +32,7 @@ const Auth: React.FC<AuthProps> = () => {
 
   useEffect(() => {
     if (isRegistered) {
-      router.push("/LoginAuth/Auth/Verify");
+      router.push("/loginAuth/auth/verify");
     }
   }, [isRegistered, router]);
 
