@@ -1,13 +1,12 @@
 import axios from "axios";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-const axiosInstance=axios.create({
-    baseURL:'https://cosmetic-back.prolabagency.com/api/',
-    headers:{
-        'Content-Type':'application/json'
-    }
-})
-
-
+const axiosInstance = axios.create({
+  baseURL: apiUrl,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 // axiosInstance.interceptors.response.use((config) => {
 //     return config
@@ -19,21 +18,20 @@ const axiosInstance=axios.create({
 //     return Promise.reject(err)
 // })
 
-
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use(
+  (config) => {
     if (typeof window !== "undefined") {
-        const token = localStorage.getItem('userToken')
-        if (token) {
-            config.headers['Authorization'] = 'Token ' + token
-        }
+      const token = localStorage.getItem("userToken");
+      if (token) {
+        config.headers["Authorization"] = "Token " + token;
+      }
     }
-    return config
-}, (err) => {
-    return Promise.reject(err)
-})
-
-
-
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
 // axiosInstance.interceptors.request.use((config) => {
 //     const token = localStorage.getItem('userToken')
@@ -49,6 +47,5 @@ axiosInstance.interceptors.request.use((config) => {
 //     return Promise.reject(err)
 
 // })
-
 
 export default axiosInstance;

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { getProfile, loginUser } from "../../../store/slice/loginSlice";
-import { RootState, AppDispatch } from "@/store/store";
+import { RootState, AppDispatch } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import Input from "../../components/ui/Input";
@@ -33,7 +33,7 @@ const LoginAuth = () => {
   }, [isLoggedIn, router]);
 
   const getError = (key: string) => {
-    if (error) return error[key] ?? "";
+    if (error) return error[key as any] ?? "";
     return "";
   };
 

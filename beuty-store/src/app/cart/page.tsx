@@ -6,12 +6,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const CartItems = () => {
-  const [dataProducts, setDataProducts] = useState<CardData[]>([]);
-  const [openModal,setOpenModal]=useState(false)
+  const [items, setItems] = useState<CardData[]>([]);
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleModal=()=>{
-    setOpenModal(prev=>!prev)
-  }
+  const handleModal = () => {
+    setOpenModal((prev) => !prev);
+  };
 
   useEffect(() => {
     const dataLocalStorage = localStorage.getItem("cart");
@@ -20,22 +20,22 @@ const CartItems = () => {
         ...item,
         quantity: item.quantity || 1,
       }));
-      setDataProducts(parsedData);
+      setItems(parsedData);
     }
   }, []);
 
   const updateLocalStorage = (updatedProducts: CardData[]) => {
     localStorage.setItem("cart", JSON.stringify(updatedProducts));
-    setDataProducts(updatedProducts);
+    setItems(updatedProducts);
   };
 
   const removeFromCart = (productId: number) => {
-    const updated = dataProducts.filter((item) => item.id !== productId);
+    const updated = items.filter((item) => item.id !== productId);
     updateLocalStorage(updated);
   };
 
   const increaseQuantity = (productId: number) => {
-    const updated = dataProducts.map((item) =>
+    const updated = items.map((item) =>
       item.id === productId
         ? { ...item, quantity: (item.quantity || 1) + 1 }
         : item
@@ -44,7 +44,7 @@ const CartItems = () => {
   };
 
   const decreaseQuantity = (productId: number) => {
-    const updated = dataProducts
+    const updated = items
       .map((item) =>
         item.id === productId
           ? { ...item, quantity: (item.quantity || 1) - 1 }
@@ -55,7 +55,7 @@ const CartItems = () => {
   };
 
   const calculateTotalPrice = () => {
-    return dataProducts.reduce(
+    return items.reduce(
       (total, item) => total + item.price * (item.quantity || 1),
       0
     );
@@ -67,8 +67,8 @@ const CartItems = () => {
 
       <div className="container mx-auto">
         <div className="cartItems flex flex-col items-center">
-          {dataProducts.length > 0 ? (
-            dataProducts.map((item) => (
+          {items.length > 0 ? (
+            items.map((item) => (
               <div
                 key={item.id}
                 className="cartItem flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 w-full sm:w-[90%] md:w-[70%] max-w-[1000px] p-4 sm:p-6 bg-white shadow-lg rounded-lg gap-4"
@@ -145,7 +145,7 @@ const CartItems = () => {
             </div>
           )}
 
-          {dataProducts.length > 0 && (
+          {items.length > 0 && (
             <div className="TOTAL w-full text-center mt-8 sm:mt-12">
               <h2 className="text-md sm:text-lg font-medium">
                 ИТОГО{" "}
@@ -153,7 +153,10 @@ const CartItems = () => {
                   : {calculateTotalPrice()} тг.
                 </span>
               </h2>
-              <button onClick={handleModal} className="rounded-full bg-buttonPink text-white px-8 sm:px-14 py-2 mt-4 hover:bg-buttonPinkDark transition">
+              <button
+                onClick={handleModal}
+                className="rounded-full bg-buttonPink text-white px-8 sm:px-14 py-2 mt-4 hover:bg-buttonPinkDark transition"
+              >
                 ЗАКАЗАТЬ
               </button>
             </div>
@@ -161,7 +164,7 @@ const CartItems = () => {
         </div>
       </div>
 
-      {openModal && <ToOrderModal handleModal={handleModal}/>}
+      {openModal && <ToOrderModal handleModal={handleModal} items={items}  />}
     </section>
   );
 };
