@@ -1,5 +1,5 @@
 "use client";
-import { RootState } from "@reduxjs/toolkit/query";
+import { RootState } from "../../../store";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../store/slice/loginSlice";

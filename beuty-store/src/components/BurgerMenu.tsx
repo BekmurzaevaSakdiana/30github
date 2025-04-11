@@ -4,6 +4,7 @@ import { Category } from "@/types/modules";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/index";
 
 const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
   const dispatch = useDispatch();
@@ -64,6 +65,14 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
                 className="text-maHalfBlack font-medium text-base"
               >
                 Корзина
+              </Link>
+            </li>
+            <li onClick={onClose}>
+              <Link
+                href="/ordered"
+                className="text-maHalfBlack font-medium text-base"
+              >
+                Заказанные товары
               </Link>
             </li>
             <li className="text-maHalfBlack cursor-pointer w-full font-medium text-base">

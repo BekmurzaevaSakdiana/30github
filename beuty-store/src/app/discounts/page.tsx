@@ -4,7 +4,7 @@ import { ProductsUtils } from "@/requests/productsReq";
 import { BaseResponseI,CardData } from "@/types/modules";
 
 const Discounts = async () => {
-  let products: BaseResponseI<CardData[]> | null = null;
+  let products: BaseResponseI<CardData[]> | null|undefined = null;
   products = await ProductsUtils.getHasDiscountProducts();
 
   return (

@@ -9,7 +9,7 @@ interface CardsProps {
 }
 
 const Cards: React.FC<CardsProps> = async () => {
-  let products: BaseResponseI<CardData[]> | null = null;
+  let products: BaseResponseI<CardData[]> | null|undefined = null;
 
   products = await ProductsUtils.getIsNewPoducts();
 

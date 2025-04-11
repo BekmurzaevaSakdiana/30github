@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axiosInstance from "@/app/axios/axios";
-import { CardData } from "@/components/Cards";
+import { CardData } from "../types/modules";
 import Card from "@/components/Card";
 
 const MainSearchProduct: React.FC = () => {

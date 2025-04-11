@@ -5,44 +5,55 @@ import Pagination from "@/components/Pagination";
 import MainTitle from "@/components/ui/MainTitle";
 import { CategoryUtils } from "@/requests/categoryReq";
 import { ProductsUtils } from "@/requests/productsReq";
-import { InitialObject } from "@/types/modules";
 import React from "react";
 
-const Page = async ({ params, searchParams }: InitialObject) => {
-  let categoriesId = await CategoryUtils.getCategoryById(params.id);
+type PageProps = {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+const Page = async ({ params, searchParams }: PageProps) => {
+  // Получаем название категории
+  const categoriesId = await CategoryUtils.getCategoryById(params.id);
   const categoryName = categoriesId?.name ?? "Категория не найдена";
 
-  console.log(searchParams);
+  // Приведение searchParams к Record<string, string>
+  const cleanSearchParams: Record<string, string> = Object.fromEntries(
+    Object.entries(searchParams || {}).map(([key, value]) => [
+      key,
+      Array.isArray(value) ? value[0] : value ?? "",
+    ])
+  );
 
-  const products = await ProductsUtils.getFilteredProducts(searchParams);
-
-  console.log(products);
-
-  console.log("Search Params:", searchParams);
+  // Получаем товары
+  const products = await ProductsUtils.getFilteredProducts(cleanSearchParams);
 
   return (
-    <section className="catalog-items mb-80 ">
+    <section className="catalog-items mb-80">
       <div className="main-title bg-gradient relative">
         <div className="arrowLeft absolute left-12 top-4 max-[420px]:left-10 cursor-pointer">
           <GoBack href="/" />
         </div>
       </div>
-      <MainTitle text={categoryName} />;
-      <div className="container px-0 ">
-        <div className="filterCatalog__products px-14 flex max-xl:items-center items-baseline justify-between gap-12 max-xl:flex-col  max-xl:gap-20 max-xl:px-14">
+
+      <MainTitle text={categoryName} />
+
+      <div className="container px-0">
+        <div className="filterCatalog__products px-14 flex max-xl:items-center items-baseline justify-between gap-12 max-xl:flex-col max-xl:gap-20 max-xl:px-14">
           <FilterCatalog
             params={params}
-            searchParams={searchParams}
+            searchParams={cleanSearchParams}
             name={categoryName}
           />
 
           <div className="twoSection__products w-full max-lg:flex-col">
-            <div className="products2 flex-grow mt-20  w-full max-lg:max-3xl">
+            <div className="products2 flex-grow mt-20 w-full max-lg:max-3xl">
               <div className="productsItems">
                 <div className="products-title flex items-center gap-8 max-lg:flex-col max-xl:items-start">
                   <h2 className="font-bold text-4xl">Товары</h2>
                 </div>
-                <div className="cards w-full gap-2 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]   mt-9 lg:overflow-hidden max-lg:overflow-x-auto ">
+
+                <div className="cards w-full gap-2 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] mt-9 lg:overflow-hidden max-lg:overflow-x-auto">
                   {products?.results?.length ? (
                     products.results.map((product) => (
                       <div key={product.id}>
@@ -66,22 +77,9 @@ const Page = async ({ params, searchParams }: InitialObject) => {
                   )}
                 </div>
               </div>
-              {(products?.results ?? []) && (
-                // <div className="pagination flex items-center gap-4 mt-24 justify-center">
-                //   <div className="left">
-                //     <img src="/svg/left.png" alt="left" />
-                //   </div>
-                //   <div className="value flex items-center gap-5"></div>
-                //   <div className="right">
-                //     <img src="/svg/right.png" alt="right" />
-                //   </div>
-                // </div>
 
-                <Pagination 
-                next={products?.next}
-                back={products?.previous}
-                // totalItems={products?.count || 0} itemsPerPage={products?.count || 0 / 4}
-                 />
+              {products?.results && (
+                <Pagination next={products?.next} back={products?.previous} />
               )}
             </div>
           </div>

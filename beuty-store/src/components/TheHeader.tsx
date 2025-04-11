@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import BurgerMenu from "./BurgerMenu";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@reduxjs/toolkit/query";
+import { RootState } from "../../store/index";
 import { getProfile, setLoggedIn } from "../../store/slice/loginSlice";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import SearchInputHeader from "./SearchInputHeader";
@@ -15,7 +15,7 @@ const TheHeader = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
-  const { isLoggedIn, username, data } = useSelector(
+  const { isLoggedIn, data } = useSelector(
     (state: RootState) => state.login
   );
 
@@ -132,7 +132,7 @@ const TheHeader = () => {
                 </div>
               )}
 
-              <Link href="/orders" className="cart flex items-center gap-2">
+              <Link href="/ordered" className="cart flex items-center gap-2">
                 <img className="" src="/svg/iconCart.svg" alt="" />
 
                 <div className="cart-title">

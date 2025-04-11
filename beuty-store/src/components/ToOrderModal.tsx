@@ -5,14 +5,16 @@ import { RootState } from "../../store";
 import axiosInstance from "@/app/axios/axios";
 import { CardData } from "@/types/modules";
 
-interface ToOrderModalProps{
-  handleModal:()=>void;
-  items:CardData[];
+interface ToOrderModalProps {
+  handleModal: () => void;
+  items: CardData[];
 }
 
-const ToOrderModal:React.FC<ToOrderModalProps> = ({ handleModal, items }: any) => {
+const ToOrderModal: React.FC<ToOrderModalProps> = ({
+  handleModal,
+  items,
+}: any) => {
   const { data } = useSelector((state: RootState) => state.login);
-
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -21,42 +23,45 @@ const ToOrderModal:React.FC<ToOrderModalProps> = ({ handleModal, items }: any) =
     address: "",
   });
 
-
   const [products, setProducts] = useState([]);
 
-useEffect(() => {
-  const localProducts = localStorage.getItem("cart");
-  if (localProducts) {
-    const parsed = JSON.parse(localProducts).map((item: any) => ({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity || 1,
-      price: item.price,
-    }));
-    setProducts(parsed);
-  }
-}, []);
+  useEffect(() => {
+    const localProducts = localStorage.getItem("cart");
+    if (localProducts) {
+      const parsed = JSON.parse(localProducts).map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity || 1,
+        price: item.price,
+      }));
+      setProducts(parsed);
+    }
+  }, []);
 
-const handlePostProductsList = async (e: any) => {
-  e.preventDefault();
-  try {
-    const payload = {
-      ...formData,
-      items, 
-      status: "в ожидании",
-    };
-
-    const response = await axiosInstance.post(`orders/`, payload);
-    console.log("Order created:", response.data);
-
-    localStorage.removeItem("cart");
-    handleModal();
-  } catch (error: any) {
-    console.error("Error", error.response?.data || error.message);
-  }
-};
-
-
+  const handlePostProductsList = async (e: any) => {
+    e.preventDefault();
+    try {
+      const formattedItems = items.map((item: any) => ({
+        product:item.id,
+        quantity: item.quantity || 1,
+      })) 
+  
+      const payload = {
+        ...formData,
+        items: formattedItems,
+        status: "в ожидании",
+      };
+  
+      const response = await axiosInstance.post('orders/', payload);
+      console.log("Order created:", response.data);
+  
+      localStorage.removeItem("cart");
+      handleModal();
+    } catch (error: any) {
+      console.error("Error", error.response?.data || error.message);
+    }
+  };
+  
   useEffect(() => {
     if (data) {
       setFormData((prev) => ({
@@ -88,7 +93,7 @@ const handlePostProductsList = async (e: any) => {
             <img className="w-4" src="/svg/cross.svg" alt="Закрыть" />
           </div>
         </div>
-        <form onSubmit={handlePostProductsList} className="space-y-4" >
+        <form onSubmit={handlePostProductsList} className="space-y-4">
           <input
             type="text"
             name="first_name"

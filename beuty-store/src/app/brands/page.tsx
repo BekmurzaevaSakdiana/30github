@@ -4,11 +4,11 @@ import SearchInput from "@/components/SearchInput";
 import { InitialObject } from "@/types/modules";
 import MainTitle from "@/components/ui/MainTitle";
 import { BaseResponseI,Brand } from "@/types/modules";
+import React from "react";
 
 
 
-
-const BrandsItems = async ({ searchParams }: InitialObject) => {
+const BrandsItems = async ({ searchParams }: { searchParams: { name?: string } } ) => {
   const search = searchParams.name || "";
   let brands: BaseResponseI<Brand[]> | null = null;
   brands = await BrandUtils.searchBrandsByName({ search });
@@ -24,9 +24,7 @@ const BrandsItems = async ({ searchParams }: InitialObject) => {
             <h2 className="font-bold text-3xl max-[500px]:hidden">
               Каталог брендов
             </h2>
-
             <SearchInput  />
-
             <div className="productsByLetters">
               <div className="firstLetterProduct mt-16 mb-16">
                 <div className="all-FirstLetter__products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-[1145px]:justify-center max-[1145px]:gap-8">

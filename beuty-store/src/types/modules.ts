@@ -15,6 +15,7 @@ export interface InitialObject {
 }
 
 export interface CardData {
+  items: any;
   quantity: number;
   id: number;
   images: { image: string }[];

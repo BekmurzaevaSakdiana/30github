@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams, params }: PageProps) {
-  let productsByBrands: BaseResponseI<CardData[]> | null = null;
+  let productsByBrands: BaseResponseI<CardData[]> | null | undefined = null;
   productsByBrands = await ProductsUtils.getProductByBrand(params.id);
 
   return (
