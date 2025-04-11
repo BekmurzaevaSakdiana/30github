@@ -13,11 +13,9 @@ type PageProps = {
 };
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  // Получаем название категории
   const categoriesId = await CategoryUtils.getCategoryById(params.id);
   const categoryName = categoriesId?.name ?? "Категория не найдена";
 
-  // Приведение searchParams к Record<string, string>
   const cleanSearchParams: Record<string, string> = Object.fromEntries(
     Object.entries(searchParams || {}).map(([key, value]) => [
       key,
@@ -25,7 +23,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
     ])
   );
 
-  // Получаем товары
   const products = await ProductsUtils.getFilteredProducts(cleanSearchParams);
 
   return (
