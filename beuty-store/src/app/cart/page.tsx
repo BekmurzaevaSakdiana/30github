@@ -90,7 +90,7 @@ const CartItems = () => {
                   <p className="text-md sm:text-lg text-gray-700">
                     Цена:{" "}
                     <span className="font-bold text-buttonPink">
-                      {item.price} тг.
+                      {item.price} 
                     </span>
                   </p>
 
@@ -150,7 +150,7 @@ const CartItems = () => {
               <h2 className="text-md sm:text-lg font-medium">
                 ИТОГО{" "}
                 <span className="text-buttonPink">
-                  : {calculateTotalPrice()} тг.
+                  : {calculateTotalPrice()} 
                 </span>
               </h2>
               <button

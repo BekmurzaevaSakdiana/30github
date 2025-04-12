@@ -150,14 +150,6 @@ const BurgerMenu = ({ onClose }: { onClose: () => void }) => {
               </Link>
             </li>
 
-            <li onClick={onClose}>
-              <Link
-                href="/delivery"
-                className="text-maHalfBlack font-medium text-base"
-              >
-                Доставка и оплата
-              </Link>
-            </li>
 
             <li onClick={onClose}>
               <Link

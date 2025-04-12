@@ -12,8 +12,7 @@ const SecondHeader = () => {
     setOpenModalCatalog((prev) => !prev);
   };
 
-  const getLinkClass = (
-    path: string) => {
+  const getLinkClass = (path: string) => {
     return pathname === path
       ? "text-black font-bold text-lg cursor-pointer"
       : "text-maHalfBlack text-md font-medium cursor-pointer";
@@ -50,9 +49,6 @@ const SecondHeader = () => {
               </Link>
               <Link href="/contacts" className={getLinkClass("/contacts")}>
                 Контакты
-              </Link>
-              <Link href="/delivery" className={getLinkClass("/delivery")}>
-                Доставка и оплата
               </Link>
               <Link href="/help" className={getLinkClass("/help")}>
                 Помощь

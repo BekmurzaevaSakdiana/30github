@@ -30,7 +30,6 @@ const Footer = () => {
             <nav>
               <ul className="flex items-start  gap-5 flex-col">
                 <Link href={"/catalog"} className="font-medium text-xl text-maHalfBlack">Каталог</Link>
-                <Link href={"/delivery"} className="font-medium text-xl text-maHalfBlack">Доставка и оплата</Link>
                 <Link href={"/popular"} className="font-medium text-xl text-maHalfBlack">Популярные</Link>
                 <Link href={"/brands"} className="font-medium text-xl text-maHalfBlack">Бренды</Link>
                 <Link href={"/discounts"} className="font-medium text-xl text-maHalfBlack">Акции</Link>

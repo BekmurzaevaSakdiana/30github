@@ -11,7 +11,7 @@ interface OrderItem {
     images?: { image: string }[] | null;
   };
   quantity: number;
-  get_total_price: string;
+  total_price: string;
 }
 
 interface Order {
@@ -106,7 +106,7 @@ const Page = () => {
                         <p className="text-md sm:text-lg text-gray-700">
                           Цена:{" "}
                           <span className="font-bold text-buttonPink">
-                            {item.product?.price ?? "Цена не указана"} тг.
+                            {item.product?.price ?? "Цена не указана"} 
                           </span>
                         </p>
                         <p className="text-md sm:text-lg text-gray-700">
@@ -117,8 +117,8 @@ const Page = () => {
                         </p>
                         <p className="text-md sm:text-lg text-gray-700">
                           Сумма:{" "}
-                          <span className="font-bold text-buttonPink">
-                            {item.get_total_price}
+                          <span className="font-bold text-black">
+                            {item.total_price}
                           </span>
                         </p>
                       </div>

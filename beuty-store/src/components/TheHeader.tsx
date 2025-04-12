@@ -29,26 +29,23 @@ const TheHeader = () => {
     setOpenBurgerModal((prev) => !prev);
   };
 
+
+
   useEffect(() => {
     const checkCart = () => {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       setCartNotEmpty(cart.length > 0);
     };
-
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "cart") {
-        checkCart();
-      }
-    };
-
+  
     checkCart();
-
-    window.addEventListener("storage", handleStorageChange);
-
+  
+    const intervalId = setInterval(checkCart, 500);
+  
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(intervalId);
     };
-  }, [ ]);
+  }, []);
+  
 
   const handleProfileClick = () => {
     if (isLoggedIn) {
