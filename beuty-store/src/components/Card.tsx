@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import Link from "next/link";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -68,7 +68,7 @@ const Card: React.FC<CardProps> = ({
           {description}
         </h3>
         <div className="price flex flex-col items-center mt-4">
-          {discount ? (
+        {discount && Number(discount) > 0 && Number(discount) !== Number(price) ? (
             <>
               <div className="font-medium text-md text-gray-500 line-through">
                 {price}
@@ -81,6 +81,7 @@ const Card: React.FC<CardProps> = ({
             <div className="font-medium text-md">{price}</div>
           )}
         </div>
+
         <Link href={`/product/${id}`}>
           <p className="flex items-center justify-center mt-6">Подробнее</p>
         </Link>
