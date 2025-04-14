@@ -199,25 +199,25 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
               </div>
 
               <div className="price flex flex-col gap-3 ">
-                <p className="font-bold text-lg mt-8">Цена</p>
+                <p className="font-bold text-lg mt-8 max-[410px]:mt-1">Цена</p>
                 <input
                   type="number"
                   placeholder="от"
-                  className="outline-none border border-gray-300 rounded-md px-2"
+                  className="outline-none border border-gray-300 rounded-md px-2 max-[410px]:w-[60%]"
                   value={priceFrom}
                   onChange={(e) => handlePriceChange("from", e.target.value)}
                 />
                 <input
                   type="number"
                   placeholder="до"
-                  className="outline-none border border-gray-300 rounded-md px-2"
+                  className="outline-none border border-gray-300 rounded-md px-2  max-[410px]:w-[60%]"
                   value={priceTo}
                   onChange={(e) => handlePriceChange("to", e.target.value)}
                 />
               </div>
 
               <div className="brands ">
-                <p className="font-bold text-lg mt-8">Бренды</p>
+                <p className="font-bold text-lg mt-8 max-[410px]:mt-1">Бренды</p>
 
                 <div className="allItemS flex flex-col max-h-24 overflow-y-auto  custom-scroll">
                   {loading ? (
@@ -266,7 +266,7 @@ const FilterCatalog = ({ params, name, searchParams }: FilterCatalogProps) => {
 
           <div className="btn flex items-center justify-center">
             <button
-              className=" mt-12 text-center text-lg font-medium underline"
+              className=" mt-12 text-center text-lg font-medium underline max-[410px]:mt-3"
               onClick={clearFilters}
             >
               Очистить
