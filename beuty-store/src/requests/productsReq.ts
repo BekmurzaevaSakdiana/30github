@@ -31,8 +31,8 @@ export class ProductsUtils {
           },
         }
       );
-      console.log('ser', response.config.params);
-      
+      console.log("ser", response.config.params);
+
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
@@ -40,19 +40,20 @@ export class ProductsUtils {
     }
   }
 
-  static async getIsPopularProducts(limit:number,offset:number): Promise<
-    BaseResponseI<CardData[]> | undefined
-  > {
+  static async getIsPopularProducts(
+    limit: number,
+    offset: number
+  ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         "/products/",
-      {
-        params: {
-          is_popular: true,
-          limit: limit, 
-          offset: offset, 
-        },
-      }
+        {
+          params: {
+            is_popular: true,
+            limit: limit,
+            offset: offset,
+          },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -61,12 +62,20 @@ export class ProductsUtils {
     }
   }
 
-  static async getHasDiscountProducts(): Promise<
-    BaseResponseI<CardData[]> | undefined
-  > {
+  static async getHasDiscountProducts(
+    limit: number,
+    offset: number
+  ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        "/products/?has_discount=true"
+        "/products/",
+        {
+          params: {
+            has_discount: true,
+            limit,
+            offset,
+          },
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -87,18 +96,18 @@ export class ProductsUtils {
 
   static async getProductByBrand(
     id: number,
-    limit:number,
-    offset:number,
+    limit: number,
+    offset: number
   ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
         `/products`,
         {
-          params:{
-            brand:id,
+          params: {
+            brand: id,
             limit,
-            offset
-          }
+            offset,
+          },
         }
       );
       return response.data;

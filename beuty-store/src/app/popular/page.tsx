@@ -13,7 +13,7 @@ const Popular = async ({ searchParams }: PopularProps) => {
     typeof searchParams?.page === "string" ? searchParams.page : "1"
   );
 
-  const limit = 4;
+  const limit = 9;
   const offset = (page - 1) * limit;
 
   let products: BaseResponseI<CardData[]> | null | undefined = null;
