@@ -5,12 +5,16 @@ import SwiperSection from "@/components/SwiperSection";
 import WhyUs from "@/components/WhyUs";
 import { ProductsUtils } from "@/requests/productsReq";
 
-export default async  function Home() {
+type PageProps = {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+export default async  function Home({searchParams}: PageProps) {
   return (
    <>
     <MainSearchProduct />
    <SwiperSection/>
-    <Cards text={""}/>
+    <Cards searchParams={searchParams} />
     <WhyUs/>
     <Mission/>
 

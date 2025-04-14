@@ -14,13 +14,25 @@ export class ProductsUtils {
     }
   }
 
-  static async getIsNewPoducts(): Promise<
-    BaseResponseI<CardData[]> | undefined
-  > {
+  static async getIsNewPoducts(
+    limit: number,
+    offset: number
+  ): Promise<BaseResponseI<CardData[]> | undefined> {
+    console.log(limit, offset);
+
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        "/products/?is_new=true"
+        `/products/`,
+        {
+          params: {
+            limit,
+            offset,
+            is_new: true,
+          },
+        }
       );
+      console.log('ser', response.config.params);
+      
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch products:", error);
