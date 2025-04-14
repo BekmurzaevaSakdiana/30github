@@ -3,20 +3,33 @@ import { BrandUtils } from "@/requests/brandsReq";
 import SearchInput from "@/components/SearchInput";
 import { InitialObject } from "@/types/modules";
 import MainTitle from "@/components/ui/MainTitle";
-import { BaseResponseI,Brand } from "@/types/modules";
+import { BaseResponseI, Brand } from "@/types/modules";
 import React from "react";
+import Pagination from "@/components/Pagination";
 
-
-
-const BrandsItems = async ({ searchParams }: { searchParams: { name?: string } } ) => {
+const BrandsItems = async ({
+  searchParams,
+}: {
+  searchParams: {
+    page: string;
+    name?: string;
+  };
+}) => {
   const search = searchParams.name || "";
   let brands: BaseResponseI<Brand[]> | null = null;
-  brands = await BrandUtils.searchBrandsByName({ search });
+
+  const page = Number(searchParams?.page ?? "1");
+
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
+  brands = await BrandUtils.searchBrandsByName({ name: search }, limit, offset);
   const brandList = brands?.results ?? [];
+  const showPagination = brands?.count && brands.count >= limit;
 
   return (
     <section className="contacts-section">
-     <MainTitle text="Бренды"/>
+      <MainTitle text="Бренды" />
 
       <div className="container">
         <div className="brandsItems mt-16">
@@ -24,7 +37,7 @@ const BrandsItems = async ({ searchParams }: { searchParams: { name?: string } }
             <h2 className="font-bold text-3xl max-[500px]:hidden">
               Каталог брендов
             </h2>
-            <SearchInput  />
+            <SearchInput />
             <div className="productsByLetters">
               <div className="firstLetterProduct mt-16 mb-16">
                 <div className="all-FirstLetter__products grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-[1145px]:justify-center max-[1145px]:gap-8">
@@ -61,6 +74,14 @@ const BrandsItems = async ({ searchParams }: { searchParams: { name?: string } }
                     </p>
                   )}
                 </div>
+
+                {showPagination && (
+                  <Pagination
+                    next={brands?.next}
+                    back={brands?.previous}
+                    limit={limit}
+                  />
+                )}
               </div>
             </div>
           </div>

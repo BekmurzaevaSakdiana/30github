@@ -20,10 +20,14 @@ export class BrandUtils {
     }
   }
 
-  static async searchBrandsByName(params: InitialObject | URLSearchParams) {
+  static async searchBrandsByName(
+    params: InitialObject | URLSearchParams,
+    limit: number,
+    offset: number
+  ) {
     try {
       // axios автоматически передает параметры в URL
-      const response = await axiosInstance.get(`/brand/`, {
+      const response = await axiosInstance.get(`/brand?limit=${limit}&offset=${offset}`, {
         params: params,
       });
       return response.data;
@@ -64,7 +68,7 @@ export class BrandUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch brands for category:", error);
-      return null
+      return null;
     }
   }
 }
