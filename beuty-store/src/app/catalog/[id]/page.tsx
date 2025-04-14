@@ -23,7 +23,16 @@ const Page = async ({ params, searchParams }: PageProps) => {
     ])
   );
 
-  const products = await ProductsUtils.getFilteredProducts(cleanSearchParams);
+  const page = Number(searchParams?.page || 1);
+  const limit = 4;
+  const offset = (page - 1) * limit;
+  const products = await ProductsUtils.getFilteredProducts(
+    cleanSearchParams,
+    limit,
+    offset
+  );
+
+  const showPagination = products?.results?.length;
 
   return (
     <section className="catalog-items mb-80">
@@ -75,8 +84,12 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 </div>
               </div>
 
-              {products?.results && (
-                <Pagination next={products?.next} back={products?.previous} />
+              {showPagination && (
+                <Pagination
+                  next={products?.next}
+                  back={products?.previous}
+                  limit={limit}
+                />
               )}
             </div>
           </div>

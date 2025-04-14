@@ -3,56 +3,46 @@ import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 interface PaginationProps {
-//   totalItems: number;
-//   itemsPerPage: number;
-next?:null | string;
-back?:null | string;
-
+  next?: null | string;
+  back?: null | string;
+  limit: number;
 }
 
-export default function Pagination({
-//   totalItems,
-//   itemsPerPage,
-next,
-back
-}: PaginationProps) {
+export default function Pagination({ next, back, limit }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("offset") || 1);
-//   const totalPages = Math.ceil(totalItems / itemsPerPage);
-//   console.log(totalPages);
+
+  const page = Number(searchParams.get("page") || "1");
 
   const updatePage = (newPage: number) => {
-    // if (newPage < 1 || newPage > totalPages) return;
     const params = new URLSearchParams(searchParams.toString());
-    params.set("offset", (newPage || 1) + '');
+    params.set("page", String(newPage));
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
-//   if (totalPages <= 1) return null;
+  const isPrevDisabled = page <= 1;
+  const isNextDisabled = !next;
 
   return (
     <div className="pagination flex items-center gap-4 mt-6 justify-center">
       <button
-        onClick={() => updatePage(currentPage - 1)}
-        // disabled={currentPage === 1}
-        disabled={!back}
-        className={`disabled:opacity-50`}
+        onClick={() => updatePage(page - 1)}
+        disabled={isPrevDisabled}
+        className={`w-12 h-12 flex items-center justify-center transition-opacity duration-300 ${
+          isPrevDisabled ? "opacity-50 cursor-not-allowed" : "opacity-80 hover:opacity-50"
+        }`}
       >
         <img src="/svg/left.png" alt="Previous" />
       </button>
 
-      <span className="text-lg font-medium">
-        {/* {currentPage} / {totalPages} */}
-      </span>
-
       <button
-        disabled={!next}
-        onClick={() => updatePage(currentPage + 1)}
-        // disabled={currentPage === totalPages}
-        className="disabled:opacity-50"
+        onClick={() => updatePage(page + 1)}
+        disabled={isNextDisabled}
+        className={`w-12 h-12 flex items-center justify-center transition-opacity duration-300 ${
+          isNextDisabled ? "opacity-50 cursor-not-allowed" : "opacity-80 hover:opacity-50"
+        }`}
       >
-        <img className="-rotate-180" src="/svg/left.png" alt="Previous" />
+        <img className="-rotate-180" src="/svg/left.png" alt="Next" />
       </button>
     </div>
   );
