@@ -61,6 +61,12 @@ const CartItems = () => {
     );
   };
 
+  const clearCart = () => {
+    localStorage.removeItem("cart");
+    setItems([]);
+  };
+  
+
   return (
     <section className="">
       <MainTitle text="Корзина" />
@@ -164,7 +170,7 @@ const CartItems = () => {
         </div>
       </div>
 
-      {openModal && <ToOrderModal handleModal={handleModal} items={items}  />}
+      {openModal && <ToOrderModal handleModal={handleModal} items={items}  clearCart={clearCart}  />}
     </section>
   );
 };

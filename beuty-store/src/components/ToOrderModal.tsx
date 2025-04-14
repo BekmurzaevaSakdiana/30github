@@ -13,6 +13,7 @@ interface ToOrderModalProps {
 const ToOrderModal: React.FC<ToOrderModalProps> = ({
   handleModal,
   items,
+  clearCart,
 }: any) => {
   const { data } = useSelector((state: RootState) => state.login);
 
@@ -56,6 +57,7 @@ const ToOrderModal: React.FC<ToOrderModalProps> = ({
       console.log("Order created:", response.data);
   
       localStorage.removeItem("cart");
+      clearCart();
       handleModal();
     } catch (error: any) {
       console.error("Error", error.response?.data || error.message);
