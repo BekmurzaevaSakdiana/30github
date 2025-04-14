@@ -7,6 +7,7 @@ import { CardData } from "@/types/modules";
 
 interface ToOrderModalProps {
   handleModal: () => void;
+  clearCart:()=>void
   items: CardData[];
 }
 
