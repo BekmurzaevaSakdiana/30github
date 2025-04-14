@@ -11,19 +11,17 @@ interface CardsProps {
 
 const Cards: React.FC<CardsProps> = async ({ searchParams }) => {
   console.log(searchParams);
-  
+
   const page = Number(
     typeof searchParams?.page === "string" ? searchParams.page : "1"
   );
-  console.log(page);
-  
-  const limit = 3 * page;
-  let offset = (page - 1) * 3;
+
+  const limit = 3; 
+  const offset = (page - 1) * limit;
   let products: BaseResponseI<CardData[]> | null | undefined = null;
   products = await ProductsUtils.getIsNewPoducts(limit, offset);
-  const showPagination = products?.results?.length;
-  console.log(page, offset);
-  
+  const showPagination = products?.count && products.count >= limit;
+
   console.log(products);
   return (
     <div className="title__cards">
@@ -52,8 +50,8 @@ const Cards: React.FC<CardsProps> = async ({ searchParams }) => {
 
             {showPagination && (
               <Pagination
-                next={products.next}
-                back={products.previous}
+                next={products?.next}
+                back={products?.previous}
                 limit={limit}
               />
             )}

@@ -40,12 +40,19 @@ export class ProductsUtils {
     }
   }
 
-  static async getIsPopularProducts(): Promise<
+  static async getIsPopularProducts(limit:number,offset:number): Promise<
     BaseResponseI<CardData[]> | undefined
   > {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        "/products/?is_popular=true"
+        "/products/",
+      {
+        params: {
+          is_popular: true,
+          limit: limit, 
+          offset: offset, 
+        },
+      }
       );
       return response.data;
     } catch (error: any) {

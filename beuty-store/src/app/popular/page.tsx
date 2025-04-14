@@ -1,19 +1,32 @@
 import Card from "@/components/Card";
+import Pagination from "@/components/Pagination";
 import MainTitle from "@/components/ui/MainTitle";
-import  {ProductsUtils}  from "@/requests/productsReq";
-import { BaseResponseI,CardData } from "@/types/modules";
+import { ProductsUtils } from "@/requests/productsReq";
+import { BaseResponseI, CardData } from "@/types/modules";
 
-const Popular = async () => {
-    let products: BaseResponseI<CardData[]> | null| undefined = null;
-    products = await ProductsUtils.getIsPopularProducts();
+interface PopularProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+const Popular = async ({ searchParams }: PopularProps) => {
+  const page = Number(
+    typeof searchParams?.page === "string" ? searchParams.page : "1"
+  );
+
+  const limit = 4;
+  const offset = (page - 1) * limit;
+
+  let products: BaseResponseI<CardData[]> | null | undefined = null;
+  products = await ProductsUtils.getIsPopularProducts(limit, offset);
+
+  const showPagination = products?.count && products.count >= limit;
 
   return (
     <section className="contacts-section">
-      <MainTitle text="Популярное"/>
+      <MainTitle text="Популярное" />
 
       <div className="container">
         <div className="popular-items mt-16">
-          
           <div className="cards-items">
             {products?.results?.length ? (
               products.results.map((product) => (
@@ -30,10 +43,19 @@ const Popular = async () => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-gray-500">Нет популярных товаров</p>
+              <p className="text-center text-gray-500">
+                Нет популярных товаров
+              </p>
             )}
           </div>
         </div>
+        {showPagination && (
+          <Pagination
+            next={products?.next}
+            back={products?.previous}
+            limit={limit}
+          />
+        )}
       </div>
     </section>
   );

@@ -16,7 +16,10 @@ export default async function Page({ searchParams, params }: PageProps) {
   const brandsId = await BrandUtils.getBrandById(params.id);
     const brandName = brandsId?.name ?? "Категория не найдена";
     
-  const page = Number(searchParams?.page ?? "1");
+    const page = Number(
+      typeof searchParams?.page === "string" ? searchParams.page : "1"
+    );
+  
   const limit = 9;
   const offset = (page - 1) * limit;
 

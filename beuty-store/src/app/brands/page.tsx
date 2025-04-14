@@ -18,7 +18,10 @@ const BrandsItems = async ({
   const search = searchParams.name || "";
   let brands: BaseResponseI<Brand[]> | null = null;
 
-  const page = Number(searchParams?.page ?? "1");
+  const page = Number(
+    typeof searchParams?.page === "string" ? searchParams.page : "1"
+  );
+
 
   const limit = 20;
   const offset = (page - 1) * limit;
