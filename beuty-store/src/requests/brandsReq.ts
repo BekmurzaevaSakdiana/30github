@@ -27,9 +27,12 @@ export class BrandUtils {
   ) {
     try {
       // axios автоматически передает параметры в URL
-      const response = await axiosInstance.get(`/brand?limit=${limit}&offset=${offset}`, {
-        params: params,
-      });
+      const response = await axiosInstance.get(
+        `/brand?limit=${limit}&offset=${offset}`,
+        {
+          params: params,
+        }
+      );
       return response.data;
     } catch (error: any) {
       console.error("Ошибка при поиске брендов:", error);
@@ -55,6 +58,16 @@ export class BrandUtils {
       return response.data;
     } catch (error: any) {
       console.error("Failed to fetch brands for product:", error);
+    }
+  }
+
+  static async getBrandById(id: number): Promise<any | undefined> {
+    try {
+      const response = await axiosInstance.get(`/brand/${id}`);
+      return response.data;
+    } catch (error: any) {
+      console.error("Ошибка при получении бренда:", error);
+      return undefined;
     }
   }
 

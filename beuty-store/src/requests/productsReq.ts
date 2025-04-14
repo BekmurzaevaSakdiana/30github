@@ -79,11 +79,20 @@ export class ProductsUtils {
   }
 
   static async getProductByBrand(
-    id: number
+    id: number,
+    limit:number,
+    offset:number,
   ): Promise<BaseResponseI<CardData[]> | undefined> {
     try {
       const response = await axiosInstance.get<BaseResponseI<CardData[]>>(
-        `/products/?brand=${id}`
+        `/products`,
+        {
+          params:{
+            brand:id,
+            limit,
+            offset
+          }
+        }
       );
       return response.data;
     } catch (error: any) {
@@ -91,7 +100,6 @@ export class ProductsUtils {
       return undefined;
     }
   }
-
   static async getFilteredProducts(
     searchParams: any,
     limit: number,
